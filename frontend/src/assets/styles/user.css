@@ -1,0 +1,228 @@
+.user-panel {
+    background-color: var(--third);
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    position: relative;
+}
+
+.user-panel .user-content {
+    padding: 10vh 17px 20px 300px;
+    height: 100vh;
+    overflow-y: scroll;
+}
+.t-form {
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+    color: var(--main);
+}
+.t-form input:not([type='submit']) {
+    background-color: var(--third);padding: 7px 10px;
+}
+.t-form .radio {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.t-form .radio input {
+    width: max-content;
+    margin-right: 7px; border-radius: 50%; accent-color: var(--second);
+}
+.t-form .radio input:focus {
+    box-shadow: none;
+}
+.t-form small {
+    color: rgb(255, 0, 0);font-size: 13px;
+}
+.utils {
+    width: 100%;
+    padding: 25px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;width: 100%;
+}
+.type-select {
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: var(--third);
+    border-radius: 12px;
+}
+.utils input, .page input{
+    padding: 8px 15px;
+    width: 100%;
+    max-width: 350px;
+    height: 40px ;
+    background-color: transparent;
+    color: var(--main);
+    border: 1px solid var(--second);
+    border-radius: 5px;
+    font-size: 15px;
+}
+.page-info {
+    display: flex;
+    width: 100%;
+    gap: 7px;
+    align-items: center;
+    justify-content:flex-end;
+}
+.page-info  button {
+    width: max-content;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+.page-info  button.disable {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+.type-select div {
+    padding: 7px;font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+.type-select.form div  {
+    width: 50%;
+    margin-top: 25px;
+}
+.type-select div.active {
+    border-bottom: 2px solid var(--second);
+}
+.type-select div:hover{
+    background-color: var(--hover);
+}
+
+.t-form .input-box > label {
+    font-size: 14px;margin-bottom: 7px;color: var(--second);
+}
+.t-form .input-box {
+    margin: 10px 0;
+}
+.t-form input:not([type='submit']){
+    color: var(--main);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+  
+table td, table th {
+    border-bottom: 1px solid var(--hover);
+    padding: 10px 8px;
+    text-align: left;
+}
+
+table tr:not(:first-of-type):hover {background-color: var(--hover);}
+table tr {
+    color: rgb(98, 98, 98);    
+}
+table tr:first-of-type {
+    border-bottom: 1px solid var(--hover);
+}
+table th {
+    margin-bottom: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--main);
+}
+table .expense, table .income {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background-color: red;
+    margin-right: 10px;
+    display: inline-block;
+}
+table .income {
+    background-color: green;
+}
+table i:hover{
+    color: var(--main);
+}
+table i:active {
+    color: white;
+}
+table tr:not(:first-of-type)  i {
+    visibility: hidden;
+}
+table tr:not(:first-of-type):hover  i {
+    visibility: visible;
+}
+
+table td button{
+    padding: 2px 10px;
+    width: max-content;
+    font-size: 14px;
+}
+
+.user-panel .msg-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    
+    display: flex;
+}
+.user-panel .msg-wrapper.success {
+    background-color: rgb(227, 255, 232);
+    color: green;
+}
+.user-panel .msg-wrapper.fail {
+    background-color: rgb(255, 227, 227);
+    color: rgb(176, 0, 0);
+}
+
+.user-panel .msg-wrapper .msg p {
+    flex: 1;
+}
+.t-btn {
+    display: flex;
+    gap: 0;
+    justify-content: left;
+}
+.t-btn input {
+    border-radius: 5px;
+    width: max-content;
+    padding: 5px 15px;
+    margin-right: 15px;
+}
+.outline {
+    color: var(--second);
+}
+.delete {
+    background-color: red;
+    border: 2px solid red;
+}
+
+@media all and (max-width: 768px) {
+    .utils {
+        padding: 0;
+        flex-direction: column-reverse;
+    }
+    .page {
+        flex-direction: column;
+    }
+    .page-info  {
+        margin: 15px 0;
+    }
+    .type-select div {
+        width: max-content;
+        padding: 2px 15px;
+    }
+    .user-panel .user-content *{
+        font-size: 12px;
+    }
+    .user-panel .user-content {
+        padding: 11vh 17px 20px;
+    }
+} 

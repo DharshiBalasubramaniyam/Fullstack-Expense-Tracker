@@ -1,0 +1,50 @@
+.t-box {
+    margin-bottom: 15px;
+}
+.t-box .date {
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+}
+.t-list {
+    border-radius: 10px;
+    margin: 10px 0;
+    background-color: var(--hover);
+}
+.t-list .t-row {
+    padding: 10px;
+    display: flex;
+}
+.t-list .t-row:first-of-type {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.t-list .t-row:last-of-type {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.t-list .t-row:not(:last-of-type) {
+    border-bottom: 2px solid #88beff;
+}
+.t-list .t-row:hover {
+    background-color: #d0e5ff;
+}
+.t-row-left {
+    flex: 1;
+}
+.t-row-left p:first-of-type {
+    color: rgb(53, 53, 53);font-size: 14px;
+}
+.t-row-left p:last-of-type{
+    color: grey;
+    font-size: 13px;
+}
+.t-row-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.t-row-right p {
+    font-size: 17px;
+    color: black;
+}

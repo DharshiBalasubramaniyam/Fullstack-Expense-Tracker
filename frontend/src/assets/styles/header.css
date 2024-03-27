@@ -1,0 +1,63 @@
+.user-content .top {
+    display: flex;
+    width: calc(100% - 280px);
+    padding: 15px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--hover);
+    color: var(--text);
+    position: fixed;
+    top: 0;
+    left: 280px;
+    background-color: var(--third);
+    z-index: 1;
+}
+.user-content .top .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;color: var(--text);
+}
+.profile{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: left;
+    height: max-content;
+    padding: 0px 15px;
+}
+.profile i {
+    font-size: 35px;
+    color: var(--second);
+}
+.profile div {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    
+}
+.profile div p {
+    font-size: 15px;
+    color: var(--second);
+}
+.profile div p:last-of-type {
+    color: gray;
+    font-size: 12px;
+}
+@media all and (max-width: 768px) {
+    .user-content .top .profile{
+       display: none;
+    }
+    .user-content .top .title h1 {
+       margin-left: 40px;
+       font-size: 20px;
+    }
+    .user-content .top  {
+        left: 0;
+        width: 100%;
+        justify-content: left;
+        background-color: aqua;
+    }
+}
