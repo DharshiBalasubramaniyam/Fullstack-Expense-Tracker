@@ -7,16 +7,16 @@ import './assets/styles/user.css'
 import Loading from './components/utils/loading';
 import AuthService from './services/auth.service'
 
-const Welcome = lazy(() => import('./pages/welcome.js') )
+const Welcome = lazy(() => import('./pages/welcome.js'))
 const Login = lazy(() => import('./pages/auth/login/login.js'))
 const Register = lazy(() => import('./pages/auth/register/register.js'))
 const UserRegistrationVerfication = lazy(() => import('./pages/auth/register/userRegistrationVerification.js'))
 const RegistrationSuccess = lazy(() => import('./pages/auth/register/registrationSuccessfull.js'))
 const Dashboard = lazy(() => import('./pages/user/dashboard.js'))
-const Transactions = lazy(() =>  import("./pages/user/transactions.js"))
-const NewTransaction = lazy(() =>  import("./pages/user/newTransaction.js"))
-const EditTransaction = lazy(() =>  import("./pages/user/editTransaction.js"))
-const ForgotPasswordEmailVerfication = lazy(() =>  import('./pages/auth/forgotpassword/forgotPasswordEmailVerification.js'))
+const Transactions = lazy(() => import("./pages/user/transactions.js"))
+const NewTransaction = lazy(() => import("./pages/user/newTransaction.js"))
+const EditTransaction = lazy(() => import("./pages/user/editTransaction.js"))
+const ForgotPasswordEmailVerfication = lazy(() => import('./pages/auth/forgotpassword/forgotPasswordEmailVerification.js'))
 const ForgotPasswordCodeVerification = lazy(() => import('./pages/auth/forgotpassword/forgotPasswordCodeVerification'))
 const ForgotPasswordChangePassword = lazy(() => import('./pages/auth/forgotpassword/changePassword.js'))
 const UnAuthorizedAccessPage = lazy(() => import('./pages/auth/unAuthorized.js'))
@@ -41,9 +41,9 @@ function App() {
     }
 
     return (
-        <Suspense fallback={<LoadingFallback />}>
+        <Suspense fallback={<LoadingSpinner />}>
 
-        <Routes>
+            <Routes>
                 <Route element={<ProtectedRoute isAllowed={!AuthService.getCurrentUser()} />}>
                     <Route path="/auth/userRegistrationVerfication/:email" element={<UserRegistrationVerfication />} />
                     <Route path="/auth/success-registration" element={<RegistrationSuccess />} />
@@ -77,16 +77,16 @@ function App() {
                 <Route path="/unauthorized" element={<UnAuthorizedAccessPage />} />
                 <Route path="*" element={<NotFoundPage />} />
 
-        </Routes>
+            </Routes>
         </Suspense>
 
     );
 }
 
 
-function LoadingFallback() {
-    return(
-        <div style={{width:'100%', height:'100vh'}}>
+function LoadingSpinner() {
+    return (
+        <div style={{ width: '100%', height: '100vh'}}>
             <Loading/>
         </div>
     )

@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function TransactionForm({ categories, onSubmit, onDelete, isLoading, transaction }) {
+function TransactionForm({ categories, onSubmit, onDelete, isDeleting, isSaving, transaction }) {
     // form field controll
     const { register, handleSubmit, watch, reset, formState } = useForm();
     const date = useRef({});
@@ -96,8 +96,8 @@ function TransactionForm({ categories, onSubmit, onDelete, isLoading, transactio
             </div>
 
             <div className='t-btn input-box'>
-                <input type='submit' value={isLoading ? "Saving..." : 'Save transaction'}
-                    className={isLoading ? "button button-fill loading" : "button button-fill"} />
+                <input type='submit' value={isSaving ? "Saving..." : 'Save transaction'}
+                    className={isSaving ? "button button-fill loading" : "button button-fill"} />
                 <input type='submit' className='button outline' value='Cancel' onClick={() => navigate('/user/transactions')} />
 
             </div>
@@ -107,7 +107,7 @@ function TransactionForm({ categories, onSubmit, onDelete, isLoading, transactio
                         <input 
                         type='submit' 
                         className='button delete' 
-                        value={isLoading ? "Deleting..." : 'Delete transaction'} 
+                        value={isDeleting ? "Deleting..." : 'Delete transaction'} 
                         onClick={() => deleteTransaction(transaction.transactionId)} />
                     </div>
                     : <></>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Loading from '../utils/loading';
 import Error from '../utils/error';
@@ -34,8 +34,9 @@ function IncomeVsExpenseChart({ setMessage, months }) {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="monthName" fontSize='10px' />
                             <YAxis />
+                            <Tooltip/>
                             <Legend />
-                            <Line type="monotone" dataKey="totalExpense" name='Expense' stroke="#ff0000" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey="totalExpense" name='Expense' stroke="#ff0000" activeDot={{ r: 5 }} />
                             <Line type="monotone" dataKey="totalIncome" name='Income' stroke="#6aa412" />
                         </LineChart>
             }

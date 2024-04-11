@@ -2,7 +2,6 @@ import { XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { BarChart, Bar, Cell } from 'recharts';
 import { useEffect, useState } from 'react';
 import Loading from '../utils/loading';
-import Error from '../utils/error';
 import useCategorySummary from '../../hooks/useCategorySummary';
 import Empty from '../utils/empty';
 

@@ -4,7 +4,7 @@ import UserService from '../../services/userService';
 
 function ChangePassword({email, setMessage}) {
 
-    const {register, handleSubmit, watch, formState} = useForm();
+    const {register, handleSubmit, watch, reset, formState} = useForm();
     const password = useRef({});
     password.current = watch('newPassword', "");
     
@@ -18,6 +18,7 @@ function ChangePassword({email, setMessage}) {
                 console.log(response);
                 if (response.data.status === "SUCCESS"){
                     setMessage({ status: "SUCCESS", text: response.data.response })
+                    reset({currentPassword: "", newPassword: "", cpassword: ""})
                     return
                 }
                 setMessage({ status: "FAIL", text: "Failed to change password: Try again later!" })

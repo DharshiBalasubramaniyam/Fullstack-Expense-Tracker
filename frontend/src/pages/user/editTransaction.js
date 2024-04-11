@@ -21,7 +21,8 @@ function EditTransaction() {
     const [isFetching, setIsFetching] = useState(true);
     const [filteredCategories, setFilteredCategories] = useState([]);
     const [activeTransactionType, setTransactionType] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
     const [message, setMessage] = useState(null)
     const navigate = useNavigate();
 
@@ -62,7 +63,7 @@ function EditTransaction() {
 
     // form submition controll
     const onSubmit = async (data) => {
-        setIsLoading(true)        
+        setIsSaving(true)        
         const response = await UserService.update_transaction(
             transactionId,AuthService.getCurrentUser().email, data.category, data.description, data.amount, data.date
         ).then(
@@ -80,11 +81,11 @@ function EditTransaction() {
                     setMessage({ status: "FAIL", text: "Failed to edit transaction information: Try again later!" })
             }
           );
-        setIsLoading(false);
+        setIsSaving(false);
     }
 
     const onDelete = (id) => {
-        setIsLoading(true)
+        setIsDeleting(true)
         const delete_response = UserService.delete_transaction(id).then(
             (response) => {
                 console.log(response);
@@ -102,7 +103,7 @@ function EditTransaction() {
                     setMessage({ status: "FAIL", text: "Failed to delete transaction: Try again later!" })
             }
         )
-        setIsLoading(false)
+        setIsDeleting(false)
     }
 
     return(
@@ -128,7 +129,8 @@ function EditTransaction() {
                                 <TransactionForm 
                                 categories={filteredCategories} 
                                 onSubmit={onSubmit} 
-                                isLoading={isLoading} 
+                                isDeleting={isDeleting}
+                                isSaving={isSaving} 
                                 transaction={transaction}
                                 onDelete={onDelete}
                                 />

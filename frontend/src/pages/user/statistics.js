@@ -29,7 +29,7 @@ function getMonths() {
     const months = []
     const current_date = new Date()
 
-    for (let i = 0; i <= 11; i++) {
+    for (let i = 11; i >= 0; i--) {
         const date = new Date(current_date.getFullYear(), current_date.getMonth() - i, 1)
         months.push({
             id: date.getMonth() + 1,

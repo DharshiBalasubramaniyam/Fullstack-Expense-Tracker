@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { useNavigate} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import AuthService from '../../../services/auth.service';
 
@@ -66,6 +66,9 @@ const ForgotPasswordEmailVerfication = () => {
                      className={isLoading ? "button button-fill loading" : "button button-fill"}
                     />
                 </div>
+                <br/>
+                <div className='msg'> <Link to={'/auth/login'} className='inline-link'>Back to Login</Link></div>
+
             </form>
     </div>
   );
