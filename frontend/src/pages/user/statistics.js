@@ -3,21 +3,23 @@ import Sidebar from "../../components/sidebar/sidebar";
 import IncomeVsExpenseChart from "../../components/userDashboard/incomeVsExpenseChart";
 import Header from "../../components/utils/header";
 import Message from "../../components/utils/message";
+import Loading from '../../components/utils/loading';
+import useExpenseVsIncomeSummary from '../../hooks/useExpenseVsIncomeSummary';
+import Info from "../../components/utils/Info";
 
 function UserStatistics() {
-    const [message, setMessage] = useState(null)
     const months = getMonths()
+    const [data, isLoading, isError] = useExpenseVsIncomeSummary(months)
 
     return (
         <div className="user-panel">
-            <Sidebar activeNavId={9}/>
+            <Sidebar activeNavId={9} />
             <div className="user-content">
-                <Header title="Statistics"/>
-                <Message message={message}/>
-                <div className='charts'>
-                    <IncomeVsExpenseChart  setMessage={setMessage} months={months}/>
-                </div>
-                
+                <Header title="Statistics" />
+                {(isLoading) && <Loading />}
+                {(isError) && <Message message={{ status: "Fail", text: "Something went wrong. Please try again later!" }} />}
+                {(isError) && <Info text="No data found!" />}
+                {(!isError) && <IncomeVsExpenseChart data={data} /> }
             </div>
         </div>
     )

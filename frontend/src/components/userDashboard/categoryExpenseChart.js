@@ -1,61 +1,35 @@
-import { XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
-import { BarChart, Bar, Cell } from 'recharts';
-import { useEffect, useState } from 'react';
-import Loading from '../utils/loading';
-import useCategorySummary from '../../hooks/useCategorySummary';
-import Empty from '../utils/empty';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
-function CategoryExpenseChart({ setMessage, currentMonth }) {
 
-    const [data, message, isFetching] = useCategorySummary(currentMonth)
-
-    useEffect(() => {
-        setMessage(message)
-    }, [message, data])
-
-    const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
-
-    const getPath = (x, y, width, height) => {
-        return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3}
-        ${x + width / 2}, ${y}
-        C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${x + width}, ${y + height}
-        Z`;
-    };
-
-    const TriangleBar = (props) => {
-        const { fill, x, y, width, height } = props;
-
-        return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
-    };
+function CategoryExpenseChart({ categorySummary }) {
+    const COLORS = ["#ff6e6e", "#ffb26e", "#e6cd10", "#00a33c", "#6ea1ff", "#a36eff", "#ff6eff", "#6ee0ff", "#676d6e"];
 
     return (
-        <ResponsiveContainer className="chart"  style={{ border: '1px solid grey' }}>
-            {
-                data.length === 0 && isFetching ? <Loading /> :
-                    data.length === 0 && !isFetching ? <Empty message="You have no expenses in this period!"/> :
-                        <BarChart
-                            width={500}
-                            height={300}
-                            data={data}
-                            margin={{
-                                top: 20,
-                                right: 0,
-                                left: 0,
-                                bottom: 0,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="2" />
-                            <XAxis dataKey="category" fontSize='10px' />
-                            <YAxis />
-                            <Bar dataKey="amount" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
-                                {data.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={colors[index % data.length]} />
-                                ))}
-                            </Bar>
-                        </BarChart>
-            }
+        <div className='chart'>
+            <ResponsiveContainer>
+                <PieChart width={50} height={100}>
+                    <Pie
+                        data={categorySummary}
+                        cx={280}
+                        cy={135}
+                        innerRadius={80}
+                        outerRadius={110}
+                        fill="#8884d8"
+                        paddingAngle={0}
+                        dataKey="amount"
+                        label
+                    >
+                        {categorySummary.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                    </Pie>
+                    <Legend dataKey='category' />
+                    <Tooltip />
+                </PieChart>
+            </ResponsiveContainer>
+        </div>
 
-        </ResponsiveContainer>
+
     )
 }
 

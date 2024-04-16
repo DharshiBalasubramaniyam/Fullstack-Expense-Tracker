@@ -2,16 +2,8 @@ import incomeImg from '../../assets/images/income.png'
 import expenseImg from '../../assets/images/expense.png'
 import cashInHandImg from '../../assets/images/cashInHand.png'
 import transactionImg from '../../assets/images/transaction.png'
-import { useEffect } from 'react'
-import useDashboadDetails from '../../hooks/useDashboadDetails'
 
-function DashboardDetailBox({ setMessage, currentMonth }) {
-
-    const [total_income, total_expense, cash_in_hand, no_of_transactions, message] = useDashboadDetails(currentMonth)
-
-    useEffect(() => {
-        setMessage(message)
-    }, [message])
+function DashboardDetailBox({ total_income, total_expense, cash_in_hand, no_of_transactions }) {
 
     return (
         <div className='details'>

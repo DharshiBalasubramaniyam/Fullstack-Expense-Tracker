@@ -4,9 +4,11 @@
     align-items: stretch;
     justify-content: space-between;
     gap: 25px;
-    padding: 20px 0;
+    padding: 15px;
     width: 100%;
+    box-shadow: 0 0 25px rgb(194, 194, 194);
     height: max-content;
+    margin: 15px 0;
 }
 .details > div {
     flex: 1 1 200px;
@@ -15,7 +17,7 @@
     justify-content: space-between;
     gap: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 25px rgb(227, 227, 227);
+    box-shadow: 0 0 25px rgb(214, 214, 214);
 }
 .details > div:hover {
     opacity: 0.95;
@@ -46,19 +48,59 @@
     height: 70px;
     width: 70px;
 }
-.charts {
+.dashboard-chart {
+    width: 100%;
+    /* background-color: #fe50c4; */
+    border: '1px solid grey';
+    height: 350px;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    justify-content: space-between;
+}
+.dashboard-chart .chart {
+    width: 50%;
+    height: 100%;
+    /* background-color: #ffa1a1; */
+    padding: 15px;
+    box-shadow: 0 0 25px rgb(194, 194, 194);
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 25px;
-    margin-top: 40px;
-    height: 350px;
-
-    align-items: center;    
 }
-.charts .chart {
-    flex: 1 1 400px;
+.dashboard-chart .chart .chart-top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.dashboard-chart .chart .chart-top button {
+    font-size: 15px;
+    padding: 2px 10px;
+    border-radius: 5px;
+    width: max-content;
+}
+.budget-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.budget-form.active {
+    display: flex;
+}
+.budget-form form {
+    padding: 15px;
+    background-color: white;
 }
 
 select {
@@ -71,6 +113,7 @@ select {
 @media all and (max-width:1000px) {
     .charts {
         display: flex;  
+        color: #00a33c;
     }
 }
 

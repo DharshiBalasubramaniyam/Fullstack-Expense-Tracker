@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
-import { useNavigate, useParams} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import AuthService from '../../services/auth.service';
 import UserService from '../../services/userService';
 import TransactionForm from '../../components/userTransactions/transactionForm';
@@ -9,16 +9,15 @@ import Header from '../../components/utils/header';
 import Message from '../../components/utils/message';
 import useCategories from '../../hooks/useCategories';
 import Loading from '../../components/utils/loading';
-import Empty from '../../components/utils/empty';
+import Info from '../../components/utils/Info';
 
 const transactionTypes = [{ 'id': 1, 'name': 'Expense' }, { 'id': 2, 'name': 'Income' }]
 
 function EditTransaction() {
 
-    const {transactionId} = useParams();
+    const { transactionId } = useParams();
     const [transaction, setData] = useState({});
-    const [categories, category_response] = useCategories();
-    const [isFetching, setIsFetching] = useState(true);
+    const [categories, category_response, isFetching] = useCategories();
     const [filteredCategories, setFilteredCategories] = useState([]);
     const [activeTransactionType, setTransactionType] = useState(1);
     const [isSaving, setIsSaving] = useState(false);
@@ -27,7 +26,6 @@ function EditTransaction() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setIsFetching(true)
         setMessage(category_response)
         setFilteredCategories(categories.filter(cat => cat.transactionType.transactionTypeId === activeTransactionType));
     }, [categories, activeTransactionType])
@@ -37,7 +35,7 @@ function EditTransaction() {
     async function getTransaction() {
         const category_response = await UserService.get_single_transaction(transactionId).then(
             (response) => {
-                if (response.data.status === "SUCCESS"){
+                if (response.data.status === "SUCCESS") {
                     console.log(response.data)
                     setData(response.data.response)
                     return
@@ -45,42 +43,43 @@ function EditTransaction() {
                 setMessage({ status: "FAIL", text: "Failed to fetch transaction information: Try again later!" })
             },
             (error) => {
-                error.response ? 
+                error.response ?
                     setMessage({ status: "FAIL", text: error.response.data.response })
-                : 
-                    setMessage({ status: "FAIL", text: "Failed to fetch transaction information: Try again later!" })            }
+                    :
+                    setMessage({ status: "FAIL", text: "Failed to fetch transaction information: Try again later!" })
+            }
         )
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getTransaction()
     }, [transactionId])
 
-    useEffect(()=>{
+    useEffect(() => {
         setTransactionType(transaction.transactionType)
     }, [transaction])
 
     // form submition controll
     const onSubmit = async (data) => {
-        setIsSaving(true)        
+        setIsSaving(true)
         const response = await UserService.update_transaction(
-            transactionId,AuthService.getCurrentUser().email, data.category, data.description, data.amount, data.date
+            transactionId, AuthService.getCurrentUser().email, data.category, data.description, data.amount, data.date
         ).then(
             (response) => {
-                if (response.data.status === "SUCCESS"){
-                    navigate("/user/transactions", {state: { status: "SUCCESS", text: response.data.response }})
+                if (response.data.status === "SUCCESS") {
+                    navigate("/user/transactions", { state: { status: "SUCCESS", text: response.data.response } })
                     return
                 }
                 setMessage({ status: "FAIL", text: "Failed to edit transaction information: Try again later!" })
             },
             (error) => {
-                error.response ? 
+                error.response ?
                     setMessage({ status: "FAIL", text: error.response.data.response })
-                : 
+                    :
                     setMessage({ status: "FAIL", text: "Failed to edit transaction information: Try again later!" })
             }
-          );
+        );
         setIsSaving(false);
     }
 
@@ -106,39 +105,33 @@ function EditTransaction() {
         setIsDeleting(false)
     }
 
-    return(
+    return (
         <div className="user-panel">
-            <Sidebar activeNavId={1}/>
+            <Sidebar activeNavId={1} />
             <div className="user-content">
-                <Header title="Edit Transaction"/>
-                <Message message={message}/>
-
+                <Header title="Edit Transaction" />
+                <Message message={message} />
+                {(isFetching) && <Loading />}
+                {(!isFetching && categories.length === 0) && <Info text="No data found!" />}
                 {
-                    (categories.length === 0 && isFetching) ? (
-                        <Loading />
-                    ) : (
-                        (categories.length === 0 && !isFetching) ? (
-                            <Empty />
-                        ) : (
-                            <>
-                                <TransactionTypeSelectWrapper
-                                    transactionTypes={transactionTypes}
-                                    setTransactionType={setTransactionType}
-                                    activeTransactionType={activeTransactionType}
-                                />
-                                <TransactionForm 
-                                categories={filteredCategories} 
-                                onSubmit={onSubmit} 
+                    (!isFetching && categories.length !== 0) && (
+                        <>
+                            <TransactionTypeSelectWrapper
+                                transactionTypes={transactionTypes}
+                                setTransactionType={setTransactionType}
+                                activeTransactionType={activeTransactionType}
+                            />
+                            <TransactionForm
+                                categories={filteredCategories}
+                                onSubmit={onSubmit}
                                 isDeleting={isDeleting}
-                                isSaving={isSaving} 
+                                isSaving={isSaving}
                                 transaction={transaction}
                                 onDelete={onDelete}
-                                />
-                            </>
-                        )
+                            />
+                        </>
                     )
                 }
-
             </div>
         </div>
     )

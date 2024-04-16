@@ -147,6 +147,33 @@ const getMonthlySummary = async (email) => {
     )
 }
 
+const getBudget = async (month, year) => {
+    return await axios.get(
+        API_BASE_URL + '/budget/get', 
+        {
+            headers: AuthService.authHeader(), 
+            params: {
+                userId: AuthService.getCurrentUser().id,
+                month: month,
+                year: year
+            }
+        }
+    )
+}
+
+const createBudget = (amount) => {
+    return axios.post(
+        API_BASE_URL + '/budget/create', 
+        {
+            userId: AuthService.getCurrentUser().id,
+            amount: amount
+        },
+        {
+            headers: AuthService.authHeader()
+        }
+    )
+}
+
 const UserService = {
     get_categories,
     add_transaction ,
@@ -158,6 +185,8 @@ const UserService = {
     getTotalIncomeOrExpense,
     getTotalNoOfTransactions,
     getTotalByCategory,
-    getMonthlySummary
+    getMonthlySummary,
+    getBudget,
+    createBudget
 }
 export default UserService;

@@ -4,11 +4,11 @@ import '../../assets/styles/user.css'
 import Sidebar from "../../components/sidebar/sidebar";
 import Header from "../../components/utils/header";
 import Message from "../../components/utils/message";
-import Empty from "../../components/utils/empty";
 import Loading from "../../components/utils/loading";
 import Search from "../../components/utils/search";
 import PageInfo from "../../components/utils/pageInfo";
 import usePagination from "../../hooks/usePagination";
+import Info from "../../components/utils/Info";
 
 function AdminTransactionsManagement() {
 
@@ -31,13 +31,9 @@ function AdminTransactionsManagement() {
                     setNoOfRecords(response.data.response.totalNoOfRecords)
                     return
                 }
-                setMessage({ status: "FAIL", text: "Failed to fetch all transactions: Try again later!" })
             },
             (error) => {
-                error.response ?
-                    setMessage({ status: "FAIL", text: error.response.data.response })
-                    :
-                    setMessage({ status: "FAIL", text: "Failed to fetch all transactions: Try again later!" })
+                setMessage({ status: "FAIL", text: "Failed to fetch all transactions: Try again later!" })
             }
         )
         setIsFetching(false);
@@ -53,26 +49,25 @@ function AdminTransactionsManagement() {
             <div className="user-content">
                 <Header title="Transactions" />
                 <Message message={message} />
-                {
-                    ( data.length === 0 && isFetching ) ? <Loading /> :
-                        <>
-                            <div className="utils page">
-                                <Search onChange={(val) => setSearchKey(val)} placeholder="Search transactions" />
-                                <PageInfo info={getPageInfo()} onPrevClick={onPrevClick} onNextClick={onNextClick}
-                                    pageNumber={pageNumber} noOfPages={noOfPages}
-                                />
-                            </div>
-                            {
-                                data.length === 0 && !isFetching ? <Empty /> :
-                                    <table>
-                                        <TransactionsTableHeader />
-                                        <TransactionsTableBody data={data} />
-                                    </table>
-                            }
 
-                        </>
+                {(isFetching) && <Loading />}
+                {(!isFetching) &&
+                    <>
+                        <div className="utils page">
+                            <Search onChange={(val) => setSearchKey(val)} placeholder="Search transactions" />
+                            <PageInfo info={getPageInfo()} onPrevClick={onPrevClick} onNextClick={onNextClick}
+                                pageNumber={pageNumber} noOfPages={noOfPages}
+                            />
+                        </div>
+                        {(data.length === 0) && <Info text={"No transactions found!"} />}
+                        {(data.length !== 0) && (
+                            <table>
+                                <TransactionsTableHeader />
+                                <TransactionsTableBody data={data} />
+                            </table>
+                        )}
+                    </>
                 }
-
             </div>
         </div>
     )
@@ -102,11 +97,11 @@ function TransactionsTableBody({ data }) {
                 <td>{item.userEmail}</td>
                 <td>{item.description || "-"}</td>
                 <td>
-                        {
-                            item.transactionType === 1 ? "- " : "+ "
-                        }
-                        {item.amount}
-                    </td>
+                    {
+                        item.transactionType === 1 ? "- " : "+ "
+                    }
+                    {item.amount}
+                </td>
                 <td>{item.categoryName}</td>
                 <td>
                     {

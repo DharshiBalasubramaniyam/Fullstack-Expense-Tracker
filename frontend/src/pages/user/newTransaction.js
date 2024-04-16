@@ -8,8 +8,8 @@ import TransactionTypeSelectWrapper from '../../components/userTransactions/tran
 import Header from '../../components/utils/header';
 import Message from '../../components/utils/message';
 import Loading from '../../components/utils/loading';
-import Empty from '../../components/utils/empty';
 import useCategories from '../../hooks/useCategories';
+import Info from '../../components/utils/Info';
 
 const transactionTypes = [{ 'id': 1, 'name': 'Expense' }, { 'id': 2, 'name': 'Income' }]
 
@@ -20,7 +20,7 @@ function NewTransaction() {
     const [activeTransactionType, setTransactionType] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState(null)
-    
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,7 +35,7 @@ function NewTransaction() {
         ).then(
             (response) => {
                 if (response.data.status === "SUCCESS") {
-                    navigate("/user/transactions", {state: { status: "SUCCESS", text: response.data.response }})
+                    navigate("/user/transactions", { state: { status: "SUCCESS", text: response.data.response } })
                     return
                 }
                 setMessage({ status: "FAIL", text: "Failed to add transaction: Try again later!" })
@@ -57,26 +57,20 @@ function NewTransaction() {
             <div className="user-content">
                 <Header title="New Transaction" />
                 <Message message={message} />
-
+                {(isFetching) && <Loading />}
+                {(!isFetching && categories.length === 0) && <Info text="No data found!" />}
                 {
-                    (categories.length === 0 && isFetching) ? (
-                        <Loading />
-                    ) : (
-                        (categories.length === 0 && !isFetching) ? (
-                            <Empty message="Internal server error!"/>
-                        ) : (
-                            <>
-                                <TransactionTypeSelectWrapper
-                                    transactionTypes={transactionTypes}
-                                    setTransactionType={setTransactionType}
-                                    activeTransactionType={activeTransactionType}
-                                />
-                                <TransactionForm categories={filteredCategories} onSubmit={onSubmit} isLoading={isLoading} />
-                            </>
-                        )
+                    (!isFetching && categories.length !== 0) && (
+                        <>
+                            <TransactionTypeSelectWrapper
+                                transactionTypes={transactionTypes}
+                                setTransactionType={setTransactionType}
+                                activeTransactionType={activeTransactionType}
+                            />
+                            <TransactionForm categories={filteredCategories} onSubmit={onSubmit} isLoading={isLoading} />
+                        </>
                     )
                 }
-
             </div>
         </div>
     )

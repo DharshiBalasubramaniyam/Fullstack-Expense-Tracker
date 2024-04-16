@@ -4,8 +4,8 @@ import AuthService from "../services/auth.service";
 
 function useExpenseVsIncomeSummary(months) {
     const [data, setData] = useState([]);
-    const [message, setMessage] = useState("")
-    const [isFetching, setIsFetching] = useState(true)
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const getData = async () => {
@@ -16,10 +16,10 @@ function useExpenseVsIncomeSummary(months) {
                     }
                 },
                 (error) => {
-                    setMessage({ status: "FAIL", text: "Failed to fetch all details: Try again later!" })
+                    setIsError(true)
                 }
             )
-            setIsFetching(false)
+            setIsLoading(false)
         }
 
         getData()
@@ -37,7 +37,7 @@ function useExpenseVsIncomeSummary(months) {
         setData(finalData)
     }
 
-    return [data, message, isFetching]
+    return [data, isLoading, isError]
 }
 
 export default useExpenseVsIncomeSummary;

@@ -6,7 +6,7 @@ import Message from "../../components/utils/message";
 import Loading from "../../components/utils/loading";
 import useCategories from "../../hooks/useCategories";
 import { useNavigate } from "react-router-dom";
-import Error from "../../components/utils/error";
+import Info from "../../components/utils/Info";
 
 function AdminCategoriesManagement() {
 
@@ -43,15 +43,14 @@ function AdminCategoriesManagement() {
             <div className="user-content">
                 <Header title="Categories" />
                 <Message message={message} />
-                {
-                    data.length === 0 && isFetching ? <Loading /> :
-                        data.length === 0 && !isFetching ? <Error /> :
-                            <table style={{marginTop: '25px'}}>
-                                <CategoriesTableHeader />
-                                <CategoriesTableBody data={data} disableOrEnable={disableOrEnable} />
-                            </table>
-
-                }
+                {(isFetching) && <Loading />}
+                {(!isFetching) && (data.length === 0) && <Info text={"No categories found!"} />}
+                {(!isFetching) && (data.length !== 0) && (
+                    <table>
+                        <CategoriesTableHeader />
+                        <CategoriesTableBody data={data} disableOrEnable={disableOrEnable} />
+                    </table>
+                )}
             </div>
 
         </div>

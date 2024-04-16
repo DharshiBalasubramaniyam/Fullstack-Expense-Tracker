@@ -3,11 +3,11 @@ import AdminService from "../../services/adminService"
 import Sidebar from "../../components/sidebar/sidebar";
 import Header from "../../components/utils/header";
 import Message from "../../components/utils/message";
-import Empty from "../../components/utils/empty";
 import Loading from "../../components/utils/loading";
 import usePagination from "../../hooks/usePagination";
 import Search from "../../components/utils/search";
 import PageInfo from "../../components/utils/pageInfo";
+import Info from "../../components/utils/Info";
 
 function AdminUsersManagement() {
 
@@ -71,26 +71,24 @@ function AdminUsersManagement() {
                 <Header title="Users" />
                 <Message message={message} />
 
-                {
-                    ( data.length === 0 && isFetching ) ? <Loading /> :
-                        <>
-                            <div className="utils page">
-                                <Search onChange={(val) => setSearchKey(val)} placeholder="Search transactions" />
-                                <PageInfo info={getPageInfo()} onPrevClick={onPrevClick} onNextClick={onNextClick}
-                                    pageNumber={pageNumber} noOfPages={noOfPages}
-                                />
-                            </div>
-                            {
-                                data.length === 0 && !isFetching ? <Empty /> :
-                                    <table>
-                                        <UsersTableHeader/>
-                                        <UsersTableBody data={data} disableOrEnable={disableOrEnable}/>
-                                    </table>
-                            }
-                        </>
+                {(isFetching) && <Loading />}
+                {(!isFetching) &&
+                    <>
+                        <div className="utils page">
+                            <Search onChange={(val) => setSearchKey(val)} placeholder="Search transactions" />
+                            <PageInfo info={getPageInfo()} onPrevClick={onPrevClick} onNextClick={onNextClick}
+                                pageNumber={pageNumber} noOfPages={noOfPages}
+                            />
+                        </div>
+                        {(data.length === 0) && <Info text={"No transactions found!"} />}
+                        {(data.length !== 0) && (
+                            <table>
+                                <UsersTableHeader />
+                                <UsersTableBody data={data} disableOrEnable={disableOrEnable} />
+                            </table>
+                        )}
+                    </>
                 }
-
-
             </div>
 
         </div>
