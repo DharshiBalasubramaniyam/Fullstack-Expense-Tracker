@@ -5,12 +5,13 @@ import ProfileCard from "../../components/userProfile/userProfileCard";
 import Header from '../../components/utils/header';
 import Message from '../../components/utils/message';
 import ChangePassword from "../../components/userProfile/changePassword";
+import useProfileImage from "../../hooks/useProfileImage";
 
 function AdminProfile() {
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
-    const [message, setMessage] = useState(null)
+    const [message, setMessage] = useState(null);
 
     useEffect(() => {
         const user = AuthService.getCurrentUser();
@@ -27,7 +28,7 @@ function AdminProfile() {
             <div className="user-content">
                 <Header title="Settings"/>
                 <Message message={message}/>
-                <ProfileCard username={username} email={email}/>
+                <ProfileCard username={username} email={email} setMessage={setMessage}/>
                 <ChangePassword email={email} setMessage={setMessage}/>
             </div>
         </div>

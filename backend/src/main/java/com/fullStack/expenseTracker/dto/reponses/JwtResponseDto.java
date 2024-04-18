@@ -1,10 +1,13 @@
 package com.fullStack.expenseTracker.dto.reponses;
 
+import lombok.Builder;
 import lombok.Data;
+import org.springframework.core.io.Resource;
 
 import java.util.List;
 
 @Data
+@Builder
 public class JwtResponseDto {
     private String token;
     private String type = "Bearer";
@@ -12,13 +15,4 @@ public class JwtResponseDto {
     private String username;
     private String email;
     private List<String> roles;
-
-    public JwtResponseDto(String accessToken, Long id, String username, String email, List<String> roles) {
-        this.token = accessToken;
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.roles = roles;
-    }
-
 }

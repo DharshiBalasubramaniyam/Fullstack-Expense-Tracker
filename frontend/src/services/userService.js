@@ -174,6 +174,40 @@ const createBudget = (amount) => {
     )
 }
 
+const uploadProfileImg = async (formData) => {
+    return await axios.post(
+        API_BASE_URL + '/user/settings/profileImg', 
+        formData,
+        {
+            headers: AuthService.authHeader(),
+            
+        }
+    )
+}
+const getProfileImg = async () => {
+    return await axios.get(
+        API_BASE_URL + '/user/settings/profileImg', 
+        {
+            headers: AuthService.authHeader(),
+            params: {
+                email: AuthService.getCurrentUser().email
+            }
+        }
+    )
+}
+
+const removeProfileImg = async () => {
+    return await axios.delete(
+        API_BASE_URL + '/user/settings/profileImg', 
+        {
+            headers: AuthService.authHeader(),
+            params: {
+                email: AuthService.getCurrentUser().email
+            }
+        }
+    )
+}
+
 const UserService = {
     get_categories,
     add_transaction ,
@@ -187,6 +221,9 @@ const UserService = {
     getTotalByCategory,
     getMonthlySummary,
     getBudget,
-    createBudget
+    createBudget,
+    uploadProfileImg,
+    getProfileImg,
+    removeProfileImg
 }
 export default UserService;

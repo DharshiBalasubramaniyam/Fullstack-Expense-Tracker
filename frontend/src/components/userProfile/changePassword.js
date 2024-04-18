@@ -7,8 +7,6 @@ function ChangePassword({email, setMessage}) {
     const {register, handleSubmit, watch, reset, formState} = useForm();
     const password = useRef({});
     password.current = watch('newPassword', "");
-    
-
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = async (data) => {

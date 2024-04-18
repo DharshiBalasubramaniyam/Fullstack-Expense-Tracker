@@ -27,7 +27,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -55,6 +62,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private TransactionTypeRepository transactionTypeRepository;
+
+    @Value("${app.user.profile.upload.dir}")
+    private String userProfileUploadDir;
 
     @Override
     public ResponseEntity<ApiResponseDto<?>> save(SignUpRequestDto signUpRequestDto)
@@ -268,6 +278,95 @@ public class UserServiceImpl implements UserService {
             log.error("Failed to enable/disable user: " + e.getMessage());
             throw new UserServiceLogicException("Failed to update user: Try again later!");
         }
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> uploadProfileImg(String email, MultipartFile file)
+            throws UserServiceLogicException, UserNotFoundException {
+        if (existsByEmail(email)) {
+            try {
+                User user = findByEmail(email);
+                String extention = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
+                String newFileName = user.getUsername().concat(extention);
+                Path targetLocation = Paths.get(userProfileUploadDir).resolve(newFileName);
+                Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+                user.setProfileImgUrl(String.valueOf(targetLocation));
+                userRepository.save(user);
+                return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDto<>(
+                        ApiResponseStatus.SUCCESS,
+                        HttpStatus.CREATED,
+                        "Profile image successfully updated!"
+                ));
+            } catch (Exception e) {
+                log.error("Failed to update profile img: {}", e.getMessage());
+                throw new UserServiceLogicException("Failed to update profile image: Try again later!");
+            }
+        }
+
+        throw new UserNotFoundException("User not found with email " + email);
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> getProfileImg(String email) throws UserNotFoundException, IOException, UserServiceLogicException {
+        if (existsByEmail(email)) {
+            try{
+                User user = findByEmail(email);
+
+                if (user.getProfileImgUrl() != null) {
+                    Path profileImgPath = Paths.get(user.getProfileImgUrl());
+
+                    byte[] imageBytes = Files.readAllBytes(profileImgPath);
+                    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+                    return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto<>(
+                            ApiResponseStatus.SUCCESS,
+                            HttpStatus.OK,
+                            base64Image
+                    ));
+                }else {
+                    return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto<>(
+                            ApiResponseStatus.SUCCESS,
+                            HttpStatus.OK,
+                            null
+                    ));
+                }
+
+            } catch (Exception e) {
+                log.error("Failed to get profile img: {}", e.getMessage());
+                throw new UserServiceLogicException("Failed to get profile image: Try again later!");
+            }
+        }
+
+        throw new UserNotFoundException("User not found with email " + email);
+    }
+
+    @Override
+    public ResponseEntity<ApiResponseDto<?>> deleteProfileImg(String email) throws UserServiceLogicException, UserNotFoundException {
+        if (existsByEmail(email)) {
+            try{
+                User user = findByEmail(email);
+
+                File file = new File(user.getProfileImgUrl());
+                if (file.exists()) {
+                    if (file.delete()) {
+                        user.setProfileImgUrl(null);
+                        User savedUser = userRepository.save(user);
+                        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseDto<>(
+                                ApiResponseStatus.SUCCESS,
+                                HttpStatus.OK,
+                                "Profile image removed successfully!"
+                        ));
+                    }else {
+                        throw new UserServiceLogicException("Failed to remove profile image: Try again later!");
+                    }
+                }
+            } catch (Exception e) {
+                log.error("Failed to get profile img: {}", e.getMessage());
+                throw new UserServiceLogicException("Failed to remove profile image: Try again later!");
+            }
+        }
+
+        throw new UserNotFoundException("User not found with email " + email);
     }
 
     @Override

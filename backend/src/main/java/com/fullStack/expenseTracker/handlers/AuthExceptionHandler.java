@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,15 @@ public class AuthExceptionHandler {
 
     @ExceptionHandler(value = UserVerificationFailedException.class)
     public ResponseEntity<ApiResponseDto<?>> UserVerificationFailedExceptionHandler(UserVerificationFailedException exception) {
+        return ResponseEntity
+                .badRequest()
+                .body(
+                        new ApiResponseDto<>(ApiResponseStatus.FAILED, HttpStatus.BAD_REQUEST, exception.getMessage())
+                );
+    }
+
+    @ExceptionHandler(value = MaxUploadSizeExceededException.class)
+    public ResponseEntity<ApiResponseDto<?>> MaxUploadSizeExceededExceptionHandler(MaxUploadSizeExceededException exception) {
         return ResponseEntity
                 .badRequest()
                 .body(

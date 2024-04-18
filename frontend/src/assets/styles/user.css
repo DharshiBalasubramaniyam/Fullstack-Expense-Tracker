@@ -5,7 +5,6 @@
     align-items: stretch;
     position: relative;
 }
-
 .user-panel .user-content {
     padding: 10.5vh 17px 20px 300px;
     height: 100vh;
@@ -202,6 +201,31 @@ table td button{
 .delete {
     background-color: red;
     border: 2px solid red;
+}
+.profile-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.profile-img input[type='file'] {
+    display: none;
+}
+.profile-img label {
+    font-size: 14px;
+    padding: 2px 5px;
+}
+.profile-img img {
+    border-radius: 50%;
+    border: 5px solid var(--third);
+    outline: 2px solid var(--second);
+}
+.profile-img .action{
+    width: max-content;
+    display: inline-block;font-size: 13px;
+    color: var(--second);
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 @media all and (max-width: 768px) {

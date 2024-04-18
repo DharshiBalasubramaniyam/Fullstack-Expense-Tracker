@@ -41,7 +41,10 @@ public class User {
     private String verificationCode;
 
     private Date verificationCodeExpiryTime;
+
     private boolean enabled;
+
+    private String profileImgUrl;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(  name = "user_roles",
@@ -59,4 +62,5 @@ public class User {
         this.enabled = enabled;
         this.roles = roles;
     }
+
 }
