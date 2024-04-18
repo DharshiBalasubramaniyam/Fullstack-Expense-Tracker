@@ -28,11 +28,4 @@ public interface TransactionService {
 
     ResponseEntity<ApiResponseDto<?>> getTransactionsByUser(String email, int pageNumber, int pageSize, String searchKey, String sortField, String sortDirec, String transactionType) throws UserNotFoundException, TransactionServiceLogicException;
 
-    ResponseEntity<ApiResponseDto<?>> getTotalIncomeOrExpense(Long userId, int transactionTypeId, int month, int year);
-
-    ResponseEntity<ApiResponseDto<?>> getTotalNoOfTransactions(Long userId, int month, int year);
-
-    ResponseEntity<ApiResponseDto<?>> getTotalByCategory(String email, int categoryId, int month, int year);
-
-    ResponseEntity<ApiResponseDto<?>> getMonthlySummaryByUser(String email);
 }

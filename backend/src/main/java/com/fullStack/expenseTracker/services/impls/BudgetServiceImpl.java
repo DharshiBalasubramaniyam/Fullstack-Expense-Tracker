@@ -2,8 +2,6 @@ package com.fullStack.expenseTracker.services.impls;
 
 import com.fullStack.expenseTracker.dto.reponses.ApiResponseDto;
 import com.fullStack.expenseTracker.dto.reponses.ApiResponseStatus;
-import com.fullStack.expenseTracker.dto.reponses.BudgetResponse;
-import com.fullStack.expenseTracker.dto.reponses.PageResponseDto;
 import com.fullStack.expenseTracker.dto.requests.BudgetRequest;
 import com.fullStack.expenseTracker.expections.UserNotFoundException;
 import com.fullStack.expenseTracker.expections.UserServiceLogicException;
@@ -11,7 +9,6 @@ import com.fullStack.expenseTracker.models.Budget;
 import com.fullStack.expenseTracker.repository.BudgetRepository;
 import com.fullStack.expenseTracker.repository.UserRepository;
 import com.fullStack.expenseTracker.services.BudgetService;
-import com.fullStack.expenseTracker.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

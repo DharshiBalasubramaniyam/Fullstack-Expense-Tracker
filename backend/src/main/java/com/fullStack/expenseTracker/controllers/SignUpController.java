@@ -1,6 +1,6 @@
 package com.fullStack.expenseTracker.controllers;
 
-import com.fullStack.expenseTracker.services.UserService;
+import com.fullStack.expenseTracker.services.AuthService;
 import com.fullStack.expenseTracker.dto.reponses.ApiResponseDto;
 import com.fullStack.expenseTracker.dto.requests.SignUpRequestDto;
 import com.fullStack.expenseTracker.expections.UserAlreadyExistsException;
@@ -21,24 +21,24 @@ import java.io.UnsupportedEncodingException;
 @RequestMapping("/mywallet/auth")
 public class SignUpController {
     @Autowired
-    private UserService userService;
+    private AuthService authService;
 
     @PostMapping("/signup")
     public ResponseEntity<ApiResponseDto<?>> registerUser(@RequestBody @Valid SignUpRequestDto signUpRequestDto)
             throws MessagingException, UnsupportedEncodingException, UserAlreadyExistsException, UserServiceLogicException {
-        return userService.save(signUpRequestDto);
+        return authService.save(signUpRequestDto);
     }
 
     @GetMapping("/signup/verify")
     public ResponseEntity<ApiResponseDto<?>> verifyUserRegistration(@Param("code") String code)
             throws UserVerificationFailedException {
-        return userService.verifyRegistrationVerification(code);
+        return authService.verifyRegistrationVerification(code);
     }
 
     @GetMapping("/signup/resend")
     public ResponseEntity<ApiResponseDto<?>> resendVerificationCode(@Param("email") String email)
             throws UserNotFoundException, MessagingException, UnsupportedEncodingException, UserServiceLogicException {
-        return userService.resendVerificationCode(email);
+        return authService.resendVerificationCode(email);
     }
 
 }

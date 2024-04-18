@@ -1,6 +1,6 @@
 package com.fullStack.expenseTracker.controllers;
 
-import com.fullStack.expenseTracker.dto.requests.ProfileImgRequest;
+import com.fullStack.expenseTracker.services.AuthService;
 import com.fullStack.expenseTracker.services.UserService;
 import com.fullStack.expenseTracker.dto.reponses.ApiResponseDto;
 import com.fullStack.expenseTracker.dto.requests.ResetPasswordRequestDto;
@@ -24,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AuthService authService;
 
     @GetMapping("/getAll")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -52,7 +55,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<ApiResponseDto<?>> changePassword(@RequestBody @Valid ResetPasswordRequestDto resetPasswordRequestDto)
             throws UserNotFoundException, UserServiceLogicException {
-        return userService.resetPassword(resetPasswordRequestDto);
+        return authService.resetPassword(resetPasswordRequestDto);
     }
 
     @PostMapping("/settings/profileImg")

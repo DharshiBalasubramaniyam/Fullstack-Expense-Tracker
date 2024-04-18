@@ -99,55 +99,6 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public ResponseEntity<ApiResponseDto<?>> getTotalIncomeOrExpense(Long userId, int transactionTypeId,  int month, int year) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ApiResponseDto<>(ApiResponseStatus.SUCCESS,
-                        HttpStatus.OK,
-                        transactionRepository.findTotalByUserAndTransactionType(userId, transactionTypeId, month, year)
-                )
-        );
-    }
-
-    @Override
-    public ResponseEntity<ApiResponseDto<?>> getTotalNoOfTransactions(Long userId,  int month, int year) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ApiResponseDto<>(ApiResponseStatus.SUCCESS,
-                        HttpStatus.OK,
-                        transactionRepository.findTotalNoOfTransactionsByUser(userId, month, year)
-                )
-        );
-    }
-
-    @Override
-    public ResponseEntity<ApiResponseDto<?>> getTotalByCategory(String email, int categoryId, int month, int year) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ApiResponseDto<>(ApiResponseStatus.SUCCESS,
-                        HttpStatus.OK,
-                        transactionRepository.findTotalByUserAndCategory(email, categoryId, month, year)
-                )
-        );
-    }
-
-    @Override
-    public ResponseEntity<ApiResponseDto<?>> getMonthlySummaryByUser(String email) {
-        List<Object[]> result = transactionRepository.findMonthlySummaryByUser(email);
-
-        List<TransactionsMonthlySummaryDto> transactionsMonthlySummary = result.stream()
-                .map(data -> new TransactionsMonthlySummaryDto(
-                        (int) data[0],
-                        (double) data[1],
-                        (double) data[2]
-                )).toList();
-
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ApiResponseDto<>(ApiResponseStatus.SUCCESS,
-                        HttpStatus.OK,
-                        transactionsMonthlySummary
-                )
-        );
-    }
-
-    @Override
     public ResponseEntity<ApiResponseDto<?>> getTransactionById(Long transactionId)
             throws TransactionNotFoundException {
         Transaction transaction = transactionRepository.findById(transactionId).orElseThrow(
