@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import UserService from '../../services/userService';
 import AuthService from '../../services/auth.service';
-import Sidebar from '../../components/sidebar/sidebar';
 import Header from '../../components/utils/header';
 import Message from '../../components/utils/message';
 import Loading from '../../components/utils/loading';
@@ -11,6 +10,7 @@ import PageInfo from '../../components/utils/pageInfo';
 import TransactionList from '../../components/userTransactions/transactionList.js';
 import { useLocation } from 'react-router-dom';
 import Info from '../../components/utils/Info.js';
+import Container from '../../components/utils/Container.js';
 
 
 function Transactions() {
@@ -18,7 +18,6 @@ function Transactions() {
     const [userTransactions, setUserTransactions] = useState([]);
     const [message, setMessage] = useState(null)
     const [isFetching, setIsFetching] = useState(true);
-    const [isError, setIsError] = useState(false);
     const [transactionType, setTransactionType] = useState('')
     const location = useLocation();
     const receivedMessage = location.state
@@ -29,7 +28,7 @@ function Transactions() {
     } = usePagination('date')
 
     const getTransactions = async () => {
-        const transaction_response = await UserService.get_transactions(AuthService.getCurrentUser().email, pageNumber,
+        await UserService.get_transactions(AuthService.getCurrentUser().email, pageNumber,
             pageSize, searchKey, sortField, sortDirec, transactionType).then(
                 (response) => {
                     if (response.data.status === "SUCCESS") {
@@ -40,7 +39,6 @@ function Transactions() {
                     }
                 },
                 (error) => {
-                    setIsError(true)
                     setMessage({ status: "FAIL", text: "Failed to fetch all transactions: Try again later!" })
                 }
             )
@@ -56,40 +54,36 @@ function Transactions() {
     }, [receivedMessage])
 
     return (
-        <div className="user-panel">
-            <Sidebar activeNavId={1} />
-            <div className="user-content">
-                <Header title="Transactions" />
-                <Message message={message} />
+        <Container activeNavId={1}>
+            <Header title="Transactions" />
+            <Message message={message} />
 
-                {(userTransactions.length === 0 && isFetching) && <Loading />}
-                {(!isFetching) &&
-                    <>
-                        <div className='utils'>
-                            <Filter
-                                setTransactionType={(val) => setTransactionType(val)}
+            {(userTransactions.length === 0 && isFetching) && <Loading />}
+            {(!isFetching) &&
+                <>
+                    <div className='utils'>
+                        <Filter
+                            setTransactionType={(val) => setTransactionType(val)}
+                        />
+                        <div className='page'>
+                            <Search
+                                onChange={(val) => setSearchKey(val)}
+                                placeholder="Search transactions"
                             />
-                            <div className='page'>
-                                <Search 
-                                    onChange={(val) => setSearchKey(val)} 
-                                    placeholder="Search transactions" 
-                                />
-                                <PageInfo 
-                                    info={getPageInfo()} 
-                                    onPrevClick={onPrevClick} 
-                                    onNextClick={onNextClick}
-                                    pageNumber={pageNumber} 
-                                    noOfPages={noOfPages}
-                                />
-                            </div>
+                            <PageInfo
+                                info={getPageInfo()}
+                                onPrevClick={onPrevClick}
+                                onNextClick={onNextClick}
+                                pageNumber={pageNumber}
+                                noOfPages={noOfPages}
+                            />
                         </div>
-                        { (userTransactions.length === 0) && <Info text={"No transactions found!"} /> }
-                        { (userTransactions.length !== 0) && <TransactionList list={userTransactions} /> }
-                    </>
-                }
-
-            </div>
-        </div>
+                    </div>
+                    {(userTransactions.length === 0) && <Info text={"No transactions found!"} />}
+                    {(userTransactions.length !== 0) && <TransactionList list={userTransactions} />}
+                </>
+            }
+        </Container>
     )
 }
 

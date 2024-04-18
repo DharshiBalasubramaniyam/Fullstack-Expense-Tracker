@@ -11,7 +11,7 @@ function ChangePassword({email, setMessage}) {
 
     const onSubmit = async (data) => {
         setIsLoading(true);     
-        const response = await UserService.settingsResetPassword(email, data.currentPassword, data.newPassword).then(
+        await UserService.settingsResetPassword(email, data.currentPassword, data.newPassword).then(
             (response) => {
                 console.log(response);
                 if (response.data.status === "SUCCESS"){

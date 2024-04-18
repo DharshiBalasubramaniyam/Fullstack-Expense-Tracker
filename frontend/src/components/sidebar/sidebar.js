@@ -4,6 +4,7 @@ import '../../assets/styles/sidebar.css'
 import SideBarLinks from './sideBarLinks';
 import { useState } from 'react';
 import AuthVerify from '../../services/auth.verify';
+import Logo from '../utils/Logo';
 
 
 function Sidebar({ activeNavId }) {
@@ -21,7 +22,7 @@ function Sidebar({ activeNavId }) {
     return (
         <div className={(isSideBarOpen) ? "side-bar open" : "side-bar"}>
             <div style={{ padding: '15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <h1><span className='logo'></span>MyWallet</h1>
+                <Logo/>
                 <span onClick={() => setIsSideBarOpen(false)} className='mobile'><i className="fa fa-times" aria-hidden='true'></i></span>
                 <span onClick={() => setIsSideBarOpen(true)} className='mobile menu'><i className="fa fa-bars" aria-hidden='true'></i></span>
             </div>

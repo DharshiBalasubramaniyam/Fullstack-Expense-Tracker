@@ -28,8 +28,8 @@ function ProfileCard({ username, email, setMessage}) {
                     (
                         <>
                             <div className="profile-img">
-                                {!profileImg && <img src={user} width={140} height={140} />}
-                                {profileImg && <img src={profileImg} width={140} height={140} />}
+                                {!profileImg && <img src={user} width={140} height={140} alt='user'/>}
+                                {profileImg && <img src={profileImg} width={140} height={140} alt='user'/>}
                                 <div className="action">
                                     {profileImg && <label onClick={removeProfileImage}>Remove image</label>}
                                     <label>
@@ -40,7 +40,7 @@ function ProfileCard({ username, email, setMessage}) {
                             </div>
 
                             <div style={{ alignItems: 'center' }}>
-                                <h3>{username}</h3>
+                                <h3 style={{color: 'var(--text)'}}>{username}</h3>
                                 <p>{email}</p>
                             </div></>
                     )

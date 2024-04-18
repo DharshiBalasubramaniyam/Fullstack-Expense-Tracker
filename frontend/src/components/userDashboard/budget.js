@@ -26,7 +26,7 @@ function Budget({totalExpense, budgetAmount, saveBudget, currentMonth}) {
         { name: 'Balace', value:  balance}
     ];
 
-    const COLORS2 = ["#002d64", "#4389df"];
+    const COLORS2 = ["#ff6464", "#53d37d"];
 
     return (
         <>
@@ -34,7 +34,7 @@ function Budget({totalExpense, budgetAmount, saveBudget, currentMonth}) {
                 <div className="chart-top">
                     <h2>Budget: {budgetAmount}</h2> 
                     {
-                        (currentMonth.id == new Date().getMonth() + 1) && ( <button onClick={toggleForm}>Edit</button> )
+                        (currentMonth.id === new Date().getMonth() + 1) && ( <button onClick={toggleForm}>Edit</button> )
                     }
                 </div>
                 <ResponsiveContainer height={220}>

@@ -4,7 +4,7 @@
 .t-box .date {
     font-size: 15px;
     font-weight: 600;
-    color: black;
+    color: var(--text);
 }
 .t-list {
     border-radius: 10px;
@@ -24,16 +24,16 @@
     border-bottom-right-radius: 10px;
 }
 .t-list .t-row:not(:last-of-type) {
-    border-bottom: 2px solid #88beff;
+    border-bottom: 2px solid var(--main);
 }
 .t-list .t-row:hover {
-    background-color: #d0e5ff;
+    background-color: var(--main);
 }
 .t-row-left {
     flex: 1;
 }
 .t-row-left p:first-of-type {
-    color: rgb(53, 53, 53);font-size: 14px;
+    color: var(--text);font-size: 14px;
 }
 .t-row-left p:last-of-type{
     color: grey;
@@ -46,5 +46,5 @@
 }
 .t-row-right p {
     font-size: 17px;
-    color: black;
+    color: var(--text);
 }

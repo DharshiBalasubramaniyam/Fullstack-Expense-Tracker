@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import AdminService from "../../services/adminService";
 import '../../assets/styles/user.css'
-import Sidebar from "../../components/sidebar/sidebar";
 import Header from "../../components/utils/header";
 import Message from "../../components/utils/message";
 import Loading from "../../components/utils/loading";
@@ -9,6 +8,7 @@ import Search from "../../components/utils/search";
 import PageInfo from "../../components/utils/pageInfo";
 import usePagination from "../../hooks/usePagination";
 import Info from "../../components/utils/Info";
+import Container from "../../components/utils/Container";
 
 function AdminTransactionsManagement() {
 
@@ -23,7 +23,7 @@ function AdminTransactionsManagement() {
 
 
     const getTransactions = async () => {
-        const response = await AdminService.getAllTransactions(pageNumber, pageSize, searchKey).then(
+        await AdminService.getAllTransactions(pageNumber, pageSize, searchKey).then(
             (response) => {
                 if (response.data.status === 'SUCCESS') {
                     setData(response.data.response.data)
@@ -44,32 +44,29 @@ function AdminTransactionsManagement() {
     }, [searchKey, pageNumber])
 
     return (
-        <div className="user-panel">
-            <Sidebar activeNavId={4} />
-            <div className="user-content">
-                <Header title="Transactions" />
-                <Message message={message} />
+        <Container activeNavId={4}>
+            <Header title="Transactions" />
+            <Message message={message} />
 
-                {(isFetching) && <Loading />}
-                {(!isFetching) &&
-                    <>
-                        <div className="utils page">
-                            <Search onChange={(val) => setSearchKey(val)} placeholder="Search transactions" />
-                            <PageInfo info={getPageInfo()} onPrevClick={onPrevClick} onNextClick={onNextClick}
-                                pageNumber={pageNumber} noOfPages={noOfPages}
-                            />
-                        </div>
-                        {(data.length === 0) && <Info text={"No transactions found!"} />}
-                        {(data.length !== 0) && (
-                            <table>
-                                <TransactionsTableHeader />
-                                <TransactionsTableBody data={data} />
-                            </table>
-                        )}
-                    </>
-                }
-            </div>
-        </div>
+            {(isFetching) && <Loading />}
+            {(!isFetching) &&
+                <>
+                    <div className="utils page">
+                        <Search onChange={(val) => setSearchKey(val)} placeholder="Search transactions" />
+                        <PageInfo info={getPageInfo()} onPrevClick={onPrevClick} onNextClick={onNextClick}
+                            pageNumber={pageNumber} noOfPages={noOfPages}
+                        />
+                    </div>
+                    {(data.length === 0) && <Info text={"No transactions found!"} />}
+                    {(data.length !== 0) && (
+                        <table>
+                            <TransactionsTableHeader />
+                            <TransactionsTableBody data={data} />
+                        </table>
+                    )}
+                </>
+            }
+        </Container>
     )
 }
 

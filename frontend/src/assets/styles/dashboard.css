@@ -6,9 +6,9 @@
     gap: 25px;
     padding: 15px;
     width: 100%;
-    box-shadow: 0 0 25px rgb(194, 194, 194);
+    box-shadow: 0 0 25px var(--main);
     height: max-content;
-    margin: 15px 0;
+    margin: 20px 0;
 }
 .details > div {
     flex: 1 1 200px;
@@ -17,7 +17,7 @@
     justify-content: space-between;
     gap: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 25px rgb(214, 214, 214);
+    box-shadow: 0 0 25px var(--hover);
 }
 .details > div:hover {
     opacity: 0.95;
@@ -42,7 +42,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    color: white;
+    color: var(--text);
 }
 .details > div img {
     height: 70px;
@@ -50,20 +50,21 @@
 }
 .dashboard-chart {
     width: 100%;
-    /* background-color: #fe50c4; */
     border: '1px solid grey';
     height: 350px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     justify-content: space-between;
+    margin-top: 20px;
+    min-height: 380px;
+    border-radius: 5px;
 }
 .dashboard-chart .chart {
     width: 50%;
     height: 100%;
-    /* background-color: #ffa1a1; */
     padding: 15px;
-    box-shadow: 0 0 25px rgb(194, 194, 194);
+    box-shadow: 0 0 25px var(--main);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,12 +76,16 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+  color: var(--second);
 }
 .dashboard-chart .chart .chart-top button {
     font-size: 15px;
     padding: 2px 10px;
     border-radius: 5px;
     width: max-content;
+}
+.dashboard-chart .chart h4 {
+    color: var(--second);
 }
 .budget-form {
     position: fixed;
@@ -94,6 +99,7 @@
     align-items: center;
     justify-content: center;
     display: none;
+
 }
 .budget-form.active {
     display: flex;
@@ -107,8 +113,9 @@ select {
     margin-top: 20px;
     padding: 8px 20px;font-size: 15px;
     color: var(--second);
-    border: 1px solid var(--second);
+    border: 1px solid var(--hover);
     border-radius: 5px;
+    background-color: var(--hover);
 }
 @media all and (max-width:1000px) {
     .charts {

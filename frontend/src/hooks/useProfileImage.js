@@ -13,7 +13,7 @@ function useProfileImage() {
         formData.append('email', AuthService.getCurrentUser().email)
         formData.append('file', selectedFile)
 
-        const response = await UserService.uploadProfileImg(formData)
+        await UserService.uploadProfileImg(formData)
             .then((response) => {
                 window.location.reload()
             })
@@ -26,7 +26,7 @@ function useProfileImage() {
 
     const getProfileImage = async () => {
         setIsLoading(true)
-        const response = await UserService.getProfileImg()
+        await UserService.getProfileImg()
             .then((response) => {
                 displayImage(response.data.response)
             })
@@ -38,7 +38,7 @@ function useProfileImage() {
 
     const removeProfileImage = async () => {
         setIsLoading(true)
-        const response = await UserService.removeProfileImg()
+        await UserService.removeProfileImg()
             .then((response) => {
                 window.location.reload()
             })

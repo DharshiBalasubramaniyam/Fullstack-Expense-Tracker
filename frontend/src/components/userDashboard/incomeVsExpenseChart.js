@@ -11,9 +11,9 @@ function IncomeVsExpenseChart({ data }) {
                 data={data}
                 margin={{
                     top: 20,
-                    right: 0,
-                    left: 0,
-                    bottom: -22,
+                    right: 20,
+                    left: 20,
+                    bottom: 10,
                 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />

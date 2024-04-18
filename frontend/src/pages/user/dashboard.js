@@ -3,12 +3,12 @@ import { useState } from 'react';
 import DashboardDetailBox from '../../components/userDashboard/dashboardDetailBox';
 import CategoryExpenseChart from '../../components/userDashboard/categoryExpenseChart';
 import Header from '../../components/utils/header';
-import Sidebar from '../../components/sidebar/sidebar';
 import Budget from '../../components/userDashboard/budget';
 import useDashboard from '../../hooks/useDashboard';
 import Loading from '../../components/utils/loading';
 import Message from '../../components/utils/message';
 import Info from '../../components/utils/Info';
+import Container from '../../components/utils/Container';
 
 function Dashboard() {
 
@@ -24,26 +24,22 @@ function Dashboard() {
     }
 
     return (
-        <div className="user-panel">
-            <Sidebar activeNavId={0} />
-            <div className="user-content">
-                <Header title="Dashboard" />
-                {(isLoading) && <Loading/>}
-                {(isError) && <Message message={{status: "Fail", text: "Something went wrong. Please try again later!"}} />}
-                {(!isError) && <SelectMonth months={months} onMonthChange={onMonthChange} />}
-                {(!isError && total_expense == 0) && <Info text={"You have no expenses in this month!"}/>}
-                {
-                    (!isError && total_expense != 0) && <>
-                        <DashboardDetailBox total_expense={total_expense} total_income={total_income} cash_in_hand={cash_in_hand} no_of_transactions={no_of_transactions} />
-                        <div className='dashboard-chart'>
-                            <CategoryExpenseChart categorySummary={categorySummary} />
-                            <Budget totalExpense={total_expense} budgetAmount={budgetAmount} saveBudget={saveBudget} currentMonth={currentMonth} />
-                        </div>
-                    </>
-                }
-
-            </div>
-        </div>
+        <Container activeNavId={0}>
+            <Header title="Dashboard" />
+            {(isLoading) && <Loading />}
+            {(isError) && <Message message={{ status: "Fail", text: "Something went wrong. Please try again later!" }} />}
+            {(!isError) && <SelectMonth months={months} onMonthChange={onMonthChange} />}
+            {(!isLoading && !isError && total_expense === 0) && <Info text={"You have no expenses in this month!"} />}
+            {
+                (!isError && total_expense !== 0) && <>
+                    <DashboardDetailBox total_expense={total_expense} total_income={total_income} cash_in_hand={cash_in_hand} no_of_transactions={no_of_transactions} />
+                    <div className='dashboard-chart'>
+                        <CategoryExpenseChart categorySummary={categorySummary} />
+                        <Budget totalExpense={total_expense} budgetAmount={budgetAmount} saveBudget={saveBudget} currentMonth={currentMonth} />
+                    </div>
+                </>
+            }
+        </Container>
 
     )
 }
@@ -73,7 +69,7 @@ function SelectMonth({ months, onMonthChange }) {
                 {
                     months.map((m) => {
                         return (
-                            <option value={m.id}>{m.monthName} {m.year}</option>
+                            <option value={m.id} key={m.id}>{m.monthName} {m.year}</option>
                         )
                     })
                 }

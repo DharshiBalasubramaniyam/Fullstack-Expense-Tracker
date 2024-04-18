@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import AuthService from "../../services/auth.service";
-import Sidebar from "../../components/sidebar/sidebar";
 import ProfileCard from "../../components/userProfile/userProfileCard";
 import Header from '../../components/utils/header';
 import Message from '../../components/utils/message';
 import ChangePassword from "../../components/userProfile/changePassword";
-import useProfileImage from "../../hooks/useProfileImage";
+import Container from "../../components/utils/Container";
 
 function UserProfile() {
 
@@ -20,18 +19,15 @@ function UserProfile() {
             setEmail(user.email)
             setUsername(user.username)
         }
-    }, [AuthService.getCurrentUser()])
+    }, [])
 
-    return(
-        <div className="user-panel">
-            <Sidebar activeNavId={3}/>
-            <div className="user-content">
-                <Header title="Settings"/>
-                <Message message={message}/>
-                <ProfileCard username={username} email={email} setMessage={setMessage}/>
-                <ChangePassword email={email} setMessage={setMessage}/>
-            </div>
-        </div>
+    return (
+        <Container activeNavId={3}>
+            <Header title="Settings" />
+            <Message message={message} />
+            <ProfileCard username={username} email={email} setMessage={setMessage} />
+            <ChangePassword email={email} setMessage={setMessage} />
+        </Container>
     )
 }
 

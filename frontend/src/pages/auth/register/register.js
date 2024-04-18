@@ -1,8 +1,9 @@
-import {useRef, useState, useEffect} from 'react';
+import {useRef, useState } from 'react';
 import '../../../assets/styles/register.css';
 import { Link, useNavigate} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import AuthService from '../../../services/auth.service';
+import Logo from '../../../components/utils/Logo';
 
 function Register() {
 
@@ -17,9 +18,8 @@ function Register() {
 
 
     const onSubmit = async (data) => {
-        console.log(data)
         setIsLoading(true)        
-        const response = await AuthService.register_req(data.username, data.email, data.password).then(
+        await AuthService.register_req(data.username, data.email, data.password).then(
             (response) => {
                 console.log(response);
                 if (response.data.status === "SUCCESS"){
@@ -47,6 +47,7 @@ function Register() {
     return(
         <div className='container'>
             <form className="auth-form"  onSubmit={handleSubmit(onSubmit)}>
+                <Logo/>
                 <h2>Register</h2>
                 {
                     (response_error!=="") && <p>{response_error}</p>
@@ -68,7 +69,7 @@ function Register() {
                         type='text'
                         {...register('email', {
                             required: "Email is required!",
-                            pattern: {value:/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message:"Invalid email address!"}
+                            pattern: {value:/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g, message:"Invalid email address!"}
                         })}
                     />
                     {formState.errors.email && <small>{formState.errors.email.message}</small>}

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import AdminService from "../../services/adminService"
-import Sidebar from "../../components/sidebar/sidebar";
 import Header from "../../components/utils/header";
 import Message from "../../components/utils/message";
 import Loading from "../../components/utils/loading";
@@ -8,6 +7,7 @@ import usePagination from "../../hooks/usePagination";
 import Search from "../../components/utils/search";
 import PageInfo from "../../components/utils/pageInfo";
 import Info from "../../components/utils/Info";
+import Container from "../../components/utils/Container";
 
 function AdminUsersManagement() {
 
@@ -21,7 +21,7 @@ function AdminUsersManagement() {
     } = usePagination()
 
     const getUsers = async () => {
-        const response = await AdminService.getAllUsers(pageNumber, pageSize, searchKey).then(
+        await AdminService.getAllUsers(pageNumber, pageSize, searchKey).then(
             (response) => {
                 if (response.data.status === 'SUCCESS') {
                     setData(response.data.response.data)
@@ -42,7 +42,7 @@ function AdminUsersManagement() {
     }
 
     const disableOrEnable = async (userId) => {
-        const response = await AdminService.disableOrEnableUser(userId).then(
+        await AdminService.disableOrEnableUser(userId).then(
             (response) => {
                 if (response.data.status === 'SUCCESS') {
                     window.location.reload()
@@ -64,34 +64,29 @@ function AdminUsersManagement() {
     }, [searchKey, pageNumber])
 
     return (
-        <div className="user-panel">
-            <Sidebar activeNavId={5} />
+        <Container activeNavId={5}>
+            <Header title="Users" />
+            <Message message={message} />
 
-            <div className="user-content">
-                <Header title="Users" />
-                <Message message={message} />
-
-                {(isFetching) && <Loading />}
-                {(!isFetching) &&
-                    <>
-                        <div className="utils page">
-                            <Search onChange={(val) => setSearchKey(val)} placeholder="Search transactions" />
-                            <PageInfo info={getPageInfo()} onPrevClick={onPrevClick} onNextClick={onNextClick}
-                                pageNumber={pageNumber} noOfPages={noOfPages}
-                            />
-                        </div>
-                        {(data.length === 0) && <Info text={"No transactions found!"} />}
-                        {(data.length !== 0) && (
-                            <table>
-                                <UsersTableHeader />
-                                <UsersTableBody data={data} disableOrEnable={disableOrEnable} />
-                            </table>
-                        )}
-                    </>
-                }
-            </div>
-
-        </div>
+            {(isFetching) && <Loading />}
+            {(!isFetching) &&
+                <>
+                    <div className="utils page">
+                        <Search onChange={(val) => setSearchKey(val)} placeholder="Search transactions" />
+                        <PageInfo info={getPageInfo()} onPrevClick={onPrevClick} onNextClick={onNextClick}
+                            pageNumber={pageNumber} noOfPages={noOfPages}
+                        />
+                    </div>
+                    {(data.length === 0) && <Info text={"No transactions found!"} />}
+                    {(data.length !== 0) && (
+                        <table>
+                            <UsersTableHeader />
+                            <UsersTableBody data={data} disableOrEnable={disableOrEnable} />
+                        </table>
+                    )}
+                </>
+            }
+        </Container>
     )
 }
 

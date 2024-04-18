@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import { Link, useNavigate} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import AuthService from '../../../services/auth.service';
+import Logo from '../../../components/utils/Logo';
 
 const ForgotPasswordEmailVerfication = () => {
     const navigate = useNavigate()
@@ -14,7 +15,7 @@ const ForgotPasswordEmailVerfication = () => {
 
     const onSubmit = async (data) => {
         setIsLoading(true)        
-        const response = await AuthService.forgotPasswordVerifyEmail(data.email).then(
+        await AuthService.forgotPasswordVerifyEmail(data.email).then(
             (response) => {
                 console.log(response.data.message);
                 if (response.data.status === 'SUCCESS') {
@@ -42,6 +43,7 @@ const ForgotPasswordEmailVerfication = () => {
   return (
     <div className='container'>
             <form className="auth-form"  onSubmit={handleSubmit(onSubmit)}>
+                <Logo/>
                 <h3 style={{textAlign:'center'}}>Forgot password - verify your account</h3><br/>
                 <div className='msg' style={{textAlign: 'center', fontWeight: 600}}>Enter the email address which registered with us.</div><br/>
 
@@ -55,7 +57,7 @@ const ForgotPasswordEmailVerfication = () => {
                         type='text'
                         {...register('email', {
                             required: "Email is required!",
-                            pattern: {value:/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message:"Invalid email address!"}
+                            pattern: {value:/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g, message:"Invalid email address!"}
                         })}
                     />
                     {formState.errors.email && <small>{formState.errors.email.message}</small>}

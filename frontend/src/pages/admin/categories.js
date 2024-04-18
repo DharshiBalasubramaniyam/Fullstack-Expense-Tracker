@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import AdminService from "../../services/adminService";
-import Sidebar from "../../components/sidebar/sidebar";
 import Header from "../../components/utils/header";
 import Message from "../../components/utils/message";
 import Loading from "../../components/utils/loading";
 import useCategories from "../../hooks/useCategories";
 import { useNavigate } from "react-router-dom";
 import Info from "../../components/utils/Info";
+import Container from "../../components/utils/Container";
 
 function AdminCategoriesManagement() {
 
@@ -19,7 +19,7 @@ function AdminCategoriesManagement() {
     }, [category_response])
 
     const disableOrEnable = async (categoryId) => {
-        const response = await AdminService.disableOrEnableCategory(categoryId).then(
+        await AdminService.disableOrEnableCategory(categoryId).then(
             (response) => {
                 if (response.data.status === 'SUCCESS') {
                     window.location.reload()
@@ -38,22 +38,18 @@ function AdminCategoriesManagement() {
 
 
     return (
-        <div className="user-panel">
-            <Sidebar activeNavId={6} />
-            <div className="user-content">
-                <Header title="Categories" />
-                <Message message={message} />
-                {(isFetching) && <Loading />}
-                {(!isFetching) && (data.length === 0) && <Info text={"No categories found!"} />}
-                {(!isFetching) && (data.length !== 0) && (
-                    <table>
-                        <CategoriesTableHeader />
-                        <CategoriesTableBody data={data} disableOrEnable={disableOrEnable} />
-                    </table>
-                )}
-            </div>
-
-        </div>
+        <Container activeNavId={6}>
+            <Header title="Categories" />
+            <Message message={message} />
+            {(isFetching) && <Loading />}
+            {(!isFetching) && (data.length === 0) && <Info text={"No categories found!"} />}
+            {(!isFetching) && (data.length !== 0) && (
+                <table>
+                    <CategoriesTableHeader />
+                    <CategoriesTableBody data={data} disableOrEnable={disableOrEnable} />
+                </table>
+            )}
+        </Container>
     )
 }
 

@@ -1,8 +1,9 @@
 import {useEffect, useState} from 'react';
 import '../../../assets/styles/register.css';
 import {useForm} from 'react-hook-form';
-import { Link, json, useNavigate} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import AuthService from '../../../services/auth.service';
+import Logo from '../../../components/utils/Logo';
 
 function Login() {
 
@@ -23,9 +24,8 @@ function Login() {
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = async (data) => {
-        console.log(data);
         setIsLoading(true)        
-        const response = await AuthService.login_req(data.email, data.password).then(
+        await AuthService.login_req(data.email, data.password).then(
             () => {
                 setResponseError("");
 
@@ -41,7 +41,7 @@ function Login() {
             (error) => {
                 const resMessage =(error.response && error.response.data && error.response.data.message) || error.message || error.toString();
                 console.log(resMessage);
-                if (resMessage == "Bad credentials"){
+                if (resMessage === "Bad credentials"){
                     setResponseError("Invalid email or password!");
                 }else {
                     setResponseError("Something went wrong: Try again later!");
@@ -54,6 +54,7 @@ function Login() {
     return(
         <div className='container'>
             <form className="auth-form"  onSubmit={handleSubmit(onSubmit)}>
+            <Logo/>
                 <h2>Login</h2>
                 {
                     (response_error!=="") && <p>{response_error}</p>
@@ -65,7 +66,7 @@ function Login() {
                         type='text'
                         {...register('email', {
                             required: "Email is required!",
-                            pattern: {value:/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message:"Invalid email address!"}
+                            pattern: {value:/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g, message:"Invalid email address!"}
                         })}
                     />
                     {formState.errors.email && <small>{formState.errors.email.message}</small>}

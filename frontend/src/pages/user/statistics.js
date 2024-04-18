@@ -1,27 +1,23 @@
-import { useState } from "react";
-import Sidebar from "../../components/sidebar/sidebar";
 import IncomeVsExpenseChart from "../../components/userDashboard/incomeVsExpenseChart";
 import Header from "../../components/utils/header";
 import Message from "../../components/utils/message";
 import Loading from '../../components/utils/loading';
 import useExpenseVsIncomeSummary from '../../hooks/useExpenseVsIncomeSummary';
 import Info from "../../components/utils/Info";
+import Container from "../../components/utils/Container";
 
 function UserStatistics() {
     const months = getMonths()
     const [data, isLoading, isError] = useExpenseVsIncomeSummary(months)
 
     return (
-        <div className="user-panel">
-            <Sidebar activeNavId={9} />
-            <div className="user-content">
-                <Header title="Statistics" />
-                {(isLoading) && <Loading />}
-                {(isError) && <Message message={{ status: "Fail", text: "Something went wrong. Please try again later!" }} />}
-                {(isError) && <Info text="No data found!" />}
-                {(!isError) && <IncomeVsExpenseChart data={data} /> }
-            </div>
-        </div>
+        <Container activeNavId={9}>
+            <Header title="Statistics" />
+            {(isLoading) && <Loading />}
+            {(isError) && <Message message={{ status: "Fail", text: "Something went wrong. Please try again later!" }} />}
+            {(isError) && <Info text="No data found!" />}
+            {(!isError) && <IncomeVsExpenseChart data={data} />}
+        </Container>
     )
 }
 

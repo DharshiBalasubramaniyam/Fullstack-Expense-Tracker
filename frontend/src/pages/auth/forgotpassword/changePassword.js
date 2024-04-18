@@ -19,7 +19,7 @@ function ForgotPasswordChangePassword() {
 
     const onSubmit = async (data) => {
         setIsLoading(true);     
-        const response = await AuthService.resetPassword(email, data.password).then(
+        await AuthService.resetPassword(email, data.password).then(
             (response) => {
                 console.log(response);
                 if (response.data.status === "SUCCESS"){
