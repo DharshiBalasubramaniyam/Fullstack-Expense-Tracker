@@ -93,7 +93,7 @@ const settingsResetPassword = async (email, oldPassword, newpassword) => {
 
 const getTotalIncomeOrExpense = async (userId, transactionTypeId, month, year) => {
     return axios.get(
-        API_BASE_URL + '/transaction/getTotalIncomeOrExpense', 
+        API_BASE_URL + '/report/getTotalIncomeOrExpense', 
         {
             headers: AuthService.authHeader(), 
             params: {
@@ -108,7 +108,7 @@ const getTotalIncomeOrExpense = async (userId, transactionTypeId, month, year) =
 
 const getTotalNoOfTransactions = async (userId, month, year) => {
     return axios.get(
-        API_BASE_URL + '/transaction/getTotalNoOfTransactions', 
+        API_BASE_URL + '/report/getTotalNoOfTransactions', 
         {
             headers: AuthService.authHeader(), 
             params: {
@@ -122,7 +122,7 @@ const getTotalNoOfTransactions = async (userId, month, year) => {
 
 const getTotalByCategory = async (email, categoryId, month, year) => {
     return await axios.get(
-        API_BASE_URL + '/transaction/getTotalByCategory', 
+        API_BASE_URL + '/report/getTotalByCategory', 
         {
             headers: AuthService.authHeader(), 
             params: {
@@ -137,7 +137,7 @@ const getTotalByCategory = async (email, categoryId, month, year) => {
 
 const getMonthlySummary = async (email) => {
     return await axios.get(
-        API_BASE_URL + '/transaction/getMonthlySummaryByUser', 
+        API_BASE_URL + '/report/getMonthlySummaryByUser', 
         {
             headers: AuthService.authHeader(), 
             params: {

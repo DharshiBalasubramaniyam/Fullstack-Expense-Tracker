@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Poppins:wght@300;400;500;600;700&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Poppins:wght@300;400;500;600;700&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Spinnaker&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Spinnaker&family=Tillana:wght@400;500;600;700;800&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -7,7 +8,8 @@
   text-decoration: none;
   list-style-type: none;
   outline: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Tillana", system-ui;
+  /* font-family: "Spinnaker", sans-serif; */
 }
 
 :root {
