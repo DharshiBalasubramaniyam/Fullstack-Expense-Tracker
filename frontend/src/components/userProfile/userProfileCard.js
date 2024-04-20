@@ -1,15 +1,10 @@
-import { useEffect } from 'react';
 import user from '../../assets/images/user.png'
 import useProfileImage from '../../hooks/useProfileImage';
 import Loading from "../utils/loading";
 
-function ProfileCard({ username, email, setMessage}) {
+function ProfileCard({ username, email}) {
 
-    const [profileImg, textMessage, isLoading, uploadProfileImage, removeProfileImage] = useProfileImage();
-
-    useEffect(() => {
-        setMessage(textMessage)
-    }, [textMessage])
+    const [profileImg, isLoading, uploadProfileImage, removeProfileImage] = useProfileImage();
 
     const handleFileChange = async (e) => {
         const selectedFile = e.target.files[0];

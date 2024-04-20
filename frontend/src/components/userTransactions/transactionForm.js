@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function TransactionForm({ categories, onSubmit, onDelete, isDeleting, isSaving, transaction }) {
+function TransactionForm({ categories, onSubmit, isDeleting, isSaving, transaction, onDelete }) {
     // form field controll
     const { register, handleSubmit, watch, reset, formState } = useForm();
     const date = useRef({});
@@ -11,7 +11,6 @@ function TransactionForm({ categories, onSubmit, onDelete, isDeleting, isSaving,
 
     useEffect(() => {
         if (transaction && transaction.transactionId) {
-            console.log(transaction.date.split('T'))
             reset({
                 category: String(transaction.categoryId),
                 description: transaction.description,
@@ -21,8 +20,14 @@ function TransactionForm({ categories, onSubmit, onDelete, isDeleting, isSaving,
         }
     }, [reset, transaction])
 
-    const deleteTransaction = (id) => {
+    const deleteTransaction = (e, id) => {
+        e.preventDefault()
         onDelete(id)
+    }
+
+    const cancelProcess = (e) => {
+        e.preventDefault()
+        navigate('/user/transactions')
     }
 
 
@@ -98,17 +103,18 @@ function TransactionForm({ categories, onSubmit, onDelete, isDeleting, isSaving,
             <div className='t-btn input-box'>
                 <input type='submit' value={isSaving ? "Saving..." : 'Save transaction'}
                     className={isSaving ? "button button-fill loading" : "button button-fill"} />
-                <input type='submit' className='button outline' value='Cancel' onClick={() => navigate('/user/transactions')} />
+                <input type='submit' className='button outline' value='Cancel' onClick={(e) => cancelProcess(e)} />
 
             </div>
             {
                 transaction ?
                     <div className='t-btn input-box'>
-                        <input 
-                        type='submit' 
-                        className='button delete' 
-                        value={isDeleting ? "Deleting..." : 'Delete transaction'} 
-                        onClick={() => deleteTransaction(transaction.transactionId)} />
+                        <button
+                            className={isDeleting ? "button delete loading" : "button delete"}
+                            onClick={(e) => deleteTransaction(e, transaction.transactionId)} 
+                        >
+                            {isDeleting ? "Deleting..." : 'Delete transaction'} 
+                        </button>
                     </div>
                     : <></>
             }

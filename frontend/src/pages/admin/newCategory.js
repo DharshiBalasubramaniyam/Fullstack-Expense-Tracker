@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Message from "../../components/utils/message";
 import Header from "../../components/utils/header";
 import AdminService from "../../services/adminService";
 import { useNavigate } from "react-router-dom";
 import Container from "../../components/utils/Container";
+import toast, { Toaster } from "react-hot-toast";
 
 function NewCategory() {
 
     const { register, handleSubmit, formState } = useForm();
     const [isLoading, setIsLoading] = useState(false);
-    const [message, setMessage] = useState()
     const navigate = useNavigate()
 
     const onSubmit = async (data) => {
@@ -19,15 +18,13 @@ function NewCategory() {
             (response) => {
                 if (response.data.status === 'SUCCESS') {
                     navigate('/admin/categories')
-                    return
                 }
-                setMessage({ status: "FAIL", text: "Failed to add category: Try again later!" })
             },
             (error) => {
                 error.response ?
-                    setMessage({ status: "FAIL", text: error.response.data.response })
+                    toast.error("Failed to add category: Try again later!")
                     :
-                    setMessage({ status: "FAIL", text: "Failed to add category: Try again later!" })
+                    toast.error("Failed to add category: Try again later!")
             }
         )
         setIsLoading(false)
@@ -36,7 +33,7 @@ function NewCategory() {
     return (
         <Container activeNavId={7}>
             <Header title="New Category" />
-            <Message message={message} />
+            <Toaster/>
 
             <form className="auth-form t-form" onSubmit={handleSubmit(onSubmit)} style={{ marginTop: '25px' }}>
 

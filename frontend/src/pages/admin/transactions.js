@@ -2,18 +2,17 @@ import { useEffect, useState } from "react";
 import AdminService from "../../services/adminService";
 import '../../assets/styles/user.css'
 import Header from "../../components/utils/header";
-import Message from "../../components/utils/message";
 import Loading from "../../components/utils/loading";
 import Search from "../../components/utils/search";
 import PageInfo from "../../components/utils/pageInfo";
 import usePagination from "../../hooks/usePagination";
 import Info from "../../components/utils/Info";
 import Container from "../../components/utils/Container";
+import toast, { Toaster } from "react-hot-toast";
 
 function AdminTransactionsManagement() {
 
     const [data, setData] = useState([]);
-    const [message, setMessage] = useState(null);
     const [isFetching, setIsFetching] = useState(true);
 
     const {
@@ -33,7 +32,7 @@ function AdminTransactionsManagement() {
                 }
             },
             (error) => {
-                setMessage({ status: "FAIL", text: "Failed to fetch all transactions: Try again later!" })
+                toast.error("Failed to fetch all transactions: Try again later!")
             }
         )
         setIsFetching(false);
@@ -46,8 +45,7 @@ function AdminTransactionsManagement() {
     return (
         <Container activeNavId={4}>
             <Header title="Transactions" />
-            <Message message={message} />
-
+            <Toaster/>
             {(isFetching) && <Loading />}
             {(!isFetching) &&
                 <>

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import AuthService from "../services/auth.service";
 import UserService from "../services/userService";
+import toast from "react-hot-toast";
 
 function useProfileImage() {
     const [profileImg, setProfileImage] = useState(null)
-    const [textMessage, setMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
 
     const uploadProfileImage = async (selectedFile) => {
@@ -18,8 +18,7 @@ function useProfileImage() {
                 window.location.reload()
             })
             .catch((error) => {
-                console.log(error)
-                setMessage({ status: "FAILED", text: "Failed to change profile image. Try again later" })
+                toast.error("Failed to change profile image. Try again later")
             })
         setIsLoading(false)
     }
@@ -31,7 +30,7 @@ function useProfileImage() {
                 displayImage(response.data.response)
             })
             .catch((error) => {
-                setMessage({ status: "FAILED", text: "Failed to fetch profile image. Try again later" })
+                toast.error("Failed to fetch profile image. Try again later")
             })
         setIsLoading(false)
     }
@@ -43,7 +42,7 @@ function useProfileImage() {
                 window.location.reload()
             })
             .catch((error) => {
-                setMessage({ status: "FAILED", text: "Failed to remove profile image. Try again later" })
+                toast.error("Failed to remove profile image. Try again later")
             });
         setIsLoading(false)
     }
@@ -86,7 +85,7 @@ function useProfileImage() {
     }, [])
 
 
-    return [profileImg, textMessage, isLoading, uploadProfileImage, removeProfileImage];
+    return [profileImg, isLoading, uploadProfileImage, removeProfileImage];
 
 }
 

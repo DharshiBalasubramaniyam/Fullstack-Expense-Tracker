@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import AdminService from "../../services/adminService"
 import Header from "../../components/utils/header";
-import Message from "../../components/utils/message";
 import Loading from "../../components/utils/loading";
 import usePagination from "../../hooks/usePagination";
 import Search from "../../components/utils/search";
 import PageInfo from "../../components/utils/pageInfo";
 import Info from "../../components/utils/Info";
 import Container from "../../components/utils/Container";
+import toast, { Toaster } from "react-hot-toast";
 
 function AdminUsersManagement() {
 
     const [data, setData] = useState([]);
-    const [message, setMessage] = useState(null);
     const [isFetching, setIsFetching] = useState(true);
 
     const {
@@ -29,13 +28,10 @@ function AdminUsersManagement() {
                     setNoOfRecords(response.data.response.totalNoOfRecords)
                     return
                 }
-                setMessage({ status: "FAIL", text: "Failed to fetch all users: Try again later!" })
+                toast.error("Failed to fetch all users: Try again later!")
             },
             (error) => {
-                error.response ?
-                    setMessage({ status: "FAIL", text: error.response.data.response })
-                    :
-                    setMessage({ status: "FAIL", text: "Failed to fetch all users: Try again later!" })
+                toast.error("Failed to fetch all users: Try again later!")
             }
         )
         setIsFetching(false)
@@ -48,13 +44,10 @@ function AdminUsersManagement() {
                     window.location.reload()
                     return
                 }
-                setMessage({ status: "FAIL", text: "Failed to update user: Try again later!" })
+                toast.error("Failed to update user: Try again later!")
             },
             (error) => {
-                error.response ?
-                    setMessage({ status: "FAIL", text: error.response.data.response })
-                    :
-                    setMessage({ status: "FAIL", text: "Failed to update user: Try again later!" })
+                toast.error("Failed to update user: Try again later!")
             }
         )
     }
@@ -66,13 +59,13 @@ function AdminUsersManagement() {
     return (
         <Container activeNavId={5}>
             <Header title="Users" />
-            <Message message={message} />
+            <Toaster/>
 
             {(isFetching) && <Loading />}
             {(!isFetching) &&
                 <>
                     <div className="utils page">
-                        <Search onChange={(val) => setSearchKey(val)} placeholder="Search transactions" />
+                        <Search onChange={(val) => setSearchKey(val)} placeholder="Search users" />
                         <PageInfo info={getPageInfo()} onPrevClick={onPrevClick} onNextClick={onNextClick}
                             pageNumber={pageNumber} noOfPages={noOfPages}
                         />

@@ -5,11 +5,11 @@ import UserService from '../../services/userService';
 import TransactionForm from '../../components/userTransactions/transactionForm';
 import TransactionTypeSelectWrapper from '../../components/userTransactions/transactionTypeSelectWrapper';
 import Header from '../../components/utils/header';
-import Message from '../../components/utils/message';
 import useCategories from '../../hooks/useCategories';
 import Loading from '../../components/utils/loading';
 import Info from '../../components/utils/Info';
 import Container from '../../components/utils/Container';
+import toast from 'react-hot-toast';
 
 const transactionTypes = [{ 'id': 1, 'name': 'Expense' }, { 'id': 2, 'name': 'Income' }]
 
@@ -17,18 +17,16 @@ function EditTransaction() {
 
     const { transactionId } = useParams();
     const [transaction, setData] = useState({});
-    const [categories, category_response, isFetching] = useCategories();
+    const [categories, isFetching] = useCategories();
     const [filteredCategories, setFilteredCategories] = useState([]);
     const [activeTransactionType, setTransactionType] = useState(1);
     const [isSaving, setIsSaving] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
-    const [message, setMessage] = useState(null)
     const navigate = useNavigate();
 
     useEffect(() => {
-        setMessage(category_response)
         setFilteredCategories(categories.filter(cat => cat.transactionType.transactionTypeId === activeTransactionType));
-    }, [categories, activeTransactionType, category_response])
+    }, [categories, activeTransactionType])
 
 
     // to be edited transaction fetch
@@ -36,17 +34,14 @@ function EditTransaction() {
         await UserService.get_single_transaction(transactionId).then(
             (response) => {
                 if (response.data.status === "SUCCESS") {
-                    console.log(response.data)
                     setData(response.data.response)
-                    return
                 }
-                setMessage({ status: "FAIL", text: "Failed to fetch transaction information: Try again later!" })
             },
             (error) => {
                 error.response ?
-                    setMessage({ status: "FAIL", text: error.response.data.response })
+                    toast.error(error.response.data.response)
                     :
-                    setMessage({ status: "FAIL", text: "Failed to fetch transaction information: Try again later!" })
+                    toast.error("Failed to fetch transaction information: Try again later!")
             }
         )
 
@@ -68,38 +63,33 @@ function EditTransaction() {
         ).then(
             (response) => {
                 if (response.data.status === "SUCCESS") {
-                    navigate("/user/transactions", { state: { status: "SUCCESS", text: response.data.response } })
+                    navigate("/user/transactions", { state: { text: response.data.response } })
                     return
                 }
-                setMessage({ status: "FAIL", text: "Failed to edit transaction information: Try again later!" })
             },
             (error) => {
                 error.response ?
-                    setMessage({ status: "FAIL", text: error.response.data.response })
+                    toast.error(error.response.data.response)
                     :
-                    setMessage({ status: "FAIL", text: "Failed to edit transaction information: Try again later!" })
+                    toast.error("Failed to edit transaction information: Try again later!")
             }
         );
         setIsSaving(false);
     }
 
-    const onDelete = (id) => {
+    const onDelete = async (id) => {
         setIsDeleting(true)
-        UserService.delete_transaction(id).then(
+        await UserService.delete_transaction(id).then(
             (response) => {
-                console.log(response);
                 if (response.data.status === "SUCCESS") {
-                    window.location.reload()
-                    setMessage({ status: "SUCCESS", text: response.data.response })
-                    return
+                    navigate("/user/transactions", { state: { text: response.data.response } })
                 }
-                setMessage({ status: "FAIL", text: "Failed to delete transaction: Try again later!" })
             },
             (error) => {
                 error.response ?
-                    setMessage({ status: "FAIL", text: error.response.data.response })
+                    toast.error(error.response.data.response)
                     :
-                    setMessage({ status: "FAIL", text: "Failed to delete transaction: Try again later!" })
+                    toast.error("Failed to delete transaction: Try again later!")
             }
         )
         setIsDeleting(false)
@@ -108,7 +98,6 @@ function EditTransaction() {
     return (
         <Container activeNavId={1}>
             <Header title="Edit Transaction" />
-            <Message message={message} />
             {(isFetching) && <Loading />}
             {(!isFetching && categories.length === 0) && <Info text="No data found!" />}
             {

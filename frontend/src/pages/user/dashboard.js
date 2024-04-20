@@ -6,9 +6,9 @@ import Header from '../../components/utils/header';
 import Budget from '../../components/userDashboard/budget';
 import useDashboard from '../../hooks/useDashboard';
 import Loading from '../../components/utils/loading';
-import Message from '../../components/utils/message';
 import Info from '../../components/utils/Info';
 import Container from '../../components/utils/Container';
+import toast, { Toaster } from 'react-hot-toast';
 
 function Dashboard() {
 
@@ -26,10 +26,11 @@ function Dashboard() {
     return (
         <Container activeNavId={0}>
             <Header title="Dashboard" />
+            <Toaster/>
             {(isLoading) && <Loading />}
-            {(isError) && <Message message={{ status: "Fail", text: "Something went wrong. Please try again later!" }} />}
+            {(isError) && toast.error("Failed to fetch information. Try again later!")}
             {(!isError) && <SelectMonth months={months} onMonthChange={onMonthChange} />}
-            {(!isLoading && !isError && total_expense === 0) && <Info text={"You have no expenses in this month!"} />}
+            {(!isLoading &&  total_expense === 0) && <Info text={"You have no expenses in this month!"} />}
             {
                 (!isError && total_expense !== 0) && <>
                     <DashboardDetailBox total_expense={total_expense} total_income={total_income} cash_in_hand={cash_in_hand} no_of_transactions={no_of_transactions} />

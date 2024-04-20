@@ -10,23 +10,22 @@ import Loading from '../../components/utils/loading';
 import useCategories from '../../hooks/useCategories';
 import Info from '../../components/utils/Info';
 import Container from '../../components/utils/Container';
+import toast, { Toaster } from 'react-hot-toast';
 
 const transactionTypes = [{ 'id': 1, 'name': 'Expense' }, { 'id': 2, 'name': 'Income' }]
 
 function NewTransaction() {
 
-    const [categories, category_response, isFetching] = useCategories();
+    const [categories, isFetching] = useCategories();
     const [filteredCategories, setFilteredCategories] = useState([]);
     const [activeTransactionType, setTransactionType] = useState(1);
     const [isSaving, setIsSaving] = useState(false);
-    const [message, setMessage] = useState(null)
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        setMessage(category_response)
         setFilteredCategories(categories.filter(cat => cat.transactionType.transactionTypeId === activeTransactionType));
-    }, [categories, activeTransactionType, category_response])
+    }, [categories, activeTransactionType])
 
     const onSubmit = async (data) => {
         setIsSaving(true)
@@ -35,16 +34,14 @@ function NewTransaction() {
         ).then(
             (response) => {
                 if (response.data.status === "SUCCESS") {
-                    navigate("/user/transactions", { state: { status: "SUCCESS", text: response.data.response } })
-                    return
+                    navigate("/user/transactions", { state: { text: response.data.response } })
                 }
-                setMessage({ status: "FAIL", text: "Failed to add transaction: Try again later!" })
             },
             (error) => {
                 error.response ?
-                    setMessage({ status: "FAIL", text: error.response.data.response })
+                    toast.error(error.response.data.response)
                     :
-                    setMessage({ status: "FAIL", text: "Failed to add transaction: Try again later!" })
+                    toast.error("Failed to add transaction: Try again later!" )
             }
         );
         setIsSaving(false);
@@ -54,7 +51,7 @@ function NewTransaction() {
     return (
         <Container activeNavId={2}>
             <Header title="New Transaction" />
-            <Message message={message} />
+            <Toaster/>
             {(isFetching) && <Loading />}
             {(!isFetching && categories.length === 0) && <Info text="No data found!" />}
             {

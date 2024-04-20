@@ -1,8 +1,9 @@
 import {useForm} from 'react-hook-form';
 import { useRef, useState } from 'react';
 import UserService from '../../services/userService';
+import toast from 'react-hot-toast';
 
-function ChangePassword({email, setMessage}) {
+function ChangePassword({email}) {
 
     const {register, handleSubmit, watch, reset, formState} = useForm();
     const password = useRef({});
@@ -13,19 +14,18 @@ function ChangePassword({email, setMessage}) {
         setIsLoading(true);     
         await UserService.settingsResetPassword(email, data.currentPassword, data.newPassword).then(
             (response) => {
-                console.log(response);
                 if (response.data.status === "SUCCESS"){
-                    setMessage({ status: "SUCCESS", text: response.data.response })
+                    toast.success(response.data.response)
                     reset({currentPassword: "", newPassword: "", cpassword: ""})
                     return
                 }
-                setMessage({ status: "FAIL", text: "Failed to change password: Try again later!" })
             },
             (error) => {
                 error.response ? 
-                    setMessage({ status: "FAIL", text:  error.response.data.response })
+                    toast.error(error.response.data.response)
                 : 
-                    setMessage({ status: "FAIL", text: "Failed to change password: Try again later!" })            }
+                    toast.error("Failed to change password: Try again later!")
+            }
           );
         setIsLoading(false);
     }

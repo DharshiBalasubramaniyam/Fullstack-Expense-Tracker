@@ -1,37 +1,26 @@
-import { useEffect, useState } from "react";
 import AdminService from "../../services/adminService";
 import Header from "../../components/utils/header";
-import Message from "../../components/utils/message";
 import Loading from "../../components/utils/loading";
 import useCategories from "../../hooks/useCategories";
 import { useNavigate } from "react-router-dom";
 import Info from "../../components/utils/Info";
 import Container from "../../components/utils/Container";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast/headless";
 
 function AdminCategoriesManagement() {
 
-    const [data, category_response, isFetching] = useCategories([])
-    const [message, setMessage] = useState('');
-    console.log(isFetching)
-
-    useEffect(() => {
-        setMessage(category_response)
-    }, [category_response])
+    const [data, isFetching] = useCategories([])
 
     const disableOrEnable = async (categoryId) => {
         await AdminService.disableOrEnableCategory(categoryId).then(
             (response) => {
                 if (response.data.status === 'SUCCESS') {
                     window.location.reload()
-                    return
                 }
-                setMessage({ status: "FAIL", text: "Failed to update category: Try again later!" })
             },
             (error) => {
-                error.response ?
-                    setMessage({ status: "FAIL", text: error.response.data.response })
-                    :
-                    setMessage({ status: "FAIL", text: "Failed to update category: Try again later!" })
+                toast.error("Failed to update category: Try again later!")
             }
         )
     }
@@ -40,7 +29,7 @@ function AdminCategoriesManagement() {
     return (
         <Container activeNavId={6}>
             <Header title="Categories" />
-            <Message message={message} />
+            <Toaster/>
             {(isFetching) && <Loading />}
             {(!isFetching) && (data.length === 0) && <Info text={"No categories found!"} />}
             {(!isFetching) && (data.length !== 0) && (

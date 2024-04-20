@@ -11,16 +11,15 @@ import TransactionList from '../../components/userTransactions/transactionList.j
 import { useLocation } from 'react-router-dom';
 import Info from '../../components/utils/Info.js';
 import Container from '../../components/utils/Container.js';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 function Transactions() {
 
     const [userTransactions, setUserTransactions] = useState([]);
-    const [message, setMessage] = useState(null)
     const [isFetching, setIsFetching] = useState(true);
     const [transactionType, setTransactionType] = useState('')
     const location = useLocation();
-    const receivedMessage = location.state
 
     const {
         pageSize, pageNumber, noOfPages, sortField, sortDirec, searchKey,
@@ -39,7 +38,7 @@ function Transactions() {
                     }
                 },
                 (error) => {
-                    setMessage({ status: "FAIL", text: "Failed to fetch all transactions: Try again later!" })
+                    toast.error("Failed to fetch all transactions: Try again later!")
                 }
             )
         setIsFetching(false)
@@ -50,13 +49,14 @@ function Transactions() {
     }, [pageNumber, searchKey, transactionType, sortDirec, sortField])
 
     useEffect(() => {
-        setMessage(receivedMessage)
-    }, [receivedMessage])
+        location.state && toast.success(location.state.text, {duration: 1000})
+        location.state = null
+    }, [])
 
     return (
         <Container activeNavId={1}>
             <Header title="Transactions" />
-            <Message message={message} />
+            <Toaster/>
 
             {(userTransactions.length === 0 && isFetching) && <Loading />}
             {(!isFetching) &&

@@ -1,10 +1,10 @@
 import IncomeVsExpenseChart from "../../components/userDashboard/incomeVsExpenseChart";
 import Header from "../../components/utils/header";
-import Message from "../../components/utils/message";
 import Loading from '../../components/utils/loading';
 import useExpenseVsIncomeSummary from '../../hooks/useExpenseVsIncomeSummary';
 import Info from "../../components/utils/Info";
 import Container from "../../components/utils/Container";
+import toast, { Toaster } from "react-hot-toast";
 
 function UserStatistics() {
     const months = getMonths()
@@ -13,8 +13,9 @@ function UserStatistics() {
     return (
         <Container activeNavId={9}>
             <Header title="Statistics" />
+            <Toaster/>
             {(isLoading) && <Loading />}
-            {(isError) && <Message message={{ status: "Fail", text: "Something went wrong. Please try again later!" }} />}
+            {(isError) && toast.error("Failed to fetch information. Try again later!") }
             {(isError) && <Info text="No data found!" />}
             {(!isError) && <IncomeVsExpenseChart data={data} />}
         </Container>

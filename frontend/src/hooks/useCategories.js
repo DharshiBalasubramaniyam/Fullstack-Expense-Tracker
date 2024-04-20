@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
 import UserService from "../services/userService";
+import toast from "react-hot-toast";
 
 function useCategories() {
     const [categories, setCategories] = useState([]);
-    const [message, setMessage] = useState("")
     const [isFetching,  setIsFetching] = useState(true);
 
     useEffect(() => {
         const getCategories = async () => {
-            const category_response = await UserService.get_categories().then(
+            await UserService.get_categories().then(
                 (response) => {
                     if (response.data.status === "SUCCESS") {
                         setCategories(response.data.response)
                         return
                     }
-                    setMessage({ status: "FAIL", text: "Failed to fetch all categories: Try again later!" })
                 },
                 (error) => {
                     error.response ?
-                        setMessage({ status: "FAIL", text: error.response.data.response })
+                        toast.error(error.response.data.response)
                         :
-                        setMessage({ status: "FAIL", text: "Failed to fetch all categories: Try again later!" })
+                        toast.error("Failed to fetch all categories: Try again later!")
                 }
             )
             setIsFetching(false)
@@ -29,7 +28,7 @@ function useCategories() {
         getCategories()
     }, [])
 
-    return [categories, message, isFetching];
+    return [categories, isFetching];
 }
 
 export default useCategories;

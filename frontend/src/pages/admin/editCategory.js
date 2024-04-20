@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/utils/header";
-import Message from "../../components/utils/message";
 import { useForm } from "react-hook-form";
 import AdminService from "../../services/adminService";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Container from "../../components/utils/Container";
+import toast, { Toaster } from "react-hot-toast";
 
 function EditCategory() {
     const { categoryId } = useParams();
     const { register, handleSubmit, reset, formState } = useForm();
     const [isLoading, setIsLoading] = useState(false);
-    const [message, setMessage] = useState()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -23,7 +22,7 @@ function EditCategory() {
                 type: String(category.transactionType.transactionTypeId)
             })
         } else {
-            setMessage("Failed to fetch details: Try again later!")
+            toast.error("Faild to fetch category information!")
         }
         localStorage.removeItem('categoryToEdit')
     }, [reset, categoryId])
@@ -34,15 +33,13 @@ function EditCategory() {
             (response) => {
                 if (response.data.status === 'SUCCESS') {
                     navigate('/admin/categories')
-                    return
                 }
-                setMessage({ status: "FAIL", text: "Failed to update category: Try again later!" })
             },
             (error) => {
                 error.response ?
-                    setMessage({ status: "FAIL", text: error.response.data.response })
+                    toast.error("Failed to update category: Try again later!")
                     :
-                    setMessage({ status: "FAIL", text: "Failed to update category: Try again later!" })
+                    toast.error("Failed to update category: Try again later!")
             }
         )
         setIsLoading(false)
@@ -51,8 +48,7 @@ function EditCategory() {
     return (
         <Container activeNavId={6}>
             <Header title="Edit category" />
-            <Message message={message} />
-
+            <Toaster/>
             <form className="auth-form t-form" onSubmit={handleSubmit(onSubmit)} style={{ marginTop: '25px' }}>
                 <div className='input-box'>
                     <label>Category name</label><br />
