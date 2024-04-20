@@ -1,6 +1,7 @@
 package com.fullStack.expenseTracker.models;
 
 
+import com.fullStack.expenseTracker.enums.ERole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.fullStack.expenseTracker.dto.reponses;
+package com.fullStack.expenseTracker.enums;
 
 public enum ApiResponseStatus {
     SUCCESS,

@@ -1,4 +1,4 @@
-package com.fullStack.expenseTracker.models;
+package com.fullStack.expenseTracker.enums;
 
 
 public enum ERole {

@@ -1,7 +1,7 @@
 package com.fullStack.expenseTracker.services.impls;
 
 import com.fullStack.expenseTracker.services.RoleService;
-import com.fullStack.expenseTracker.models.ERole;
+import com.fullStack.expenseTracker.enums.ERole;
 import com.fullStack.expenseTracker.models.Role;
 import com.fullStack.expenseTracker.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;

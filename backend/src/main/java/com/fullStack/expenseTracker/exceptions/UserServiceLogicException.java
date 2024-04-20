@@ -1,4 +1,4 @@
-package com.fullStack.expenseTracker.expections;
+package com.fullStack.expenseTracker.exceptions;
 
 public class UserServiceLogicException extends Exception{
 

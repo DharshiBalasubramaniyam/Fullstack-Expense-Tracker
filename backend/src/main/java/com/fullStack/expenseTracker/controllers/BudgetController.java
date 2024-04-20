@@ -2,8 +2,8 @@ package com.fullStack.expenseTracker.controllers;
 
 import com.fullStack.expenseTracker.dto.reponses.ApiResponseDto;
 import com.fullStack.expenseTracker.dto.requests.BudgetRequest;
-import com.fullStack.expenseTracker.expections.UserNotFoundException;
-import com.fullStack.expenseTracker.expections.UserServiceLogicException;
+import com.fullStack.expenseTracker.exceptions.UserNotFoundException;
+import com.fullStack.expenseTracker.exceptions.UserServiceLogicException;
 import com.fullStack.expenseTracker.services.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;

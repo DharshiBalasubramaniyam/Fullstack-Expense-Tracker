@@ -1,7 +1,7 @@
 package com.fullStack.expenseTracker.services;
 
 import com.fullStack.expenseTracker.dto.reponses.ApiResponseDto;
-import com.fullStack.expenseTracker.expections.*;
+import com.fullStack.expenseTracker.exceptions.*;
 import com.fullStack.expenseTracker.models.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

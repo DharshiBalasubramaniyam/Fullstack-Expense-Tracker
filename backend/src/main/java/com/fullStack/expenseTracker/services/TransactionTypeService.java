@@ -1,6 +1,6 @@
 package com.fullStack.expenseTracker.services;
 
-import com.fullStack.expenseTracker.expections.TransactionTypeNotFoundException;
+import com.fullStack.expenseTracker.exceptions.TransactionTypeNotFoundException;
 import com.fullStack.expenseTracker.models.TransactionType;
 import org.springframework.stereotype.Service;
 

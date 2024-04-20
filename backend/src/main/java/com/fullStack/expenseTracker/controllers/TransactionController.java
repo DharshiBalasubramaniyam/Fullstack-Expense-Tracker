@@ -1,6 +1,6 @@
 package com.fullStack.expenseTracker.controllers;
 
-import com.fullStack.expenseTracker.expections.*;
+import com.fullStack.expenseTracker.exceptions.*;
 import com.fullStack.expenseTracker.services.TransactionService;
 import com.fullStack.expenseTracker.dto.reponses.ApiResponseDto;
 import com.fullStack.expenseTracker.dto.requests.TransactionRequestDto;

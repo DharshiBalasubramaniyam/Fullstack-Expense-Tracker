@@ -1,9 +1,8 @@
 package com.fullStack.expenseTracker.handlers;
 
 import com.fullStack.expenseTracker.dto.reponses.ApiResponseDto;
-import com.fullStack.expenseTracker.dto.reponses.ApiResponseStatus;
-import com.fullStack.expenseTracker.expections.RoleNotFoundException;
-import com.fullStack.expenseTracker.expections.UserNotFoundException;
+import com.fullStack.expenseTracker.enums.ApiResponseStatus;
+import com.fullStack.expenseTracker.exceptions.RoleNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

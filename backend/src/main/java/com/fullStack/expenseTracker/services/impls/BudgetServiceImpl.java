@@ -1,10 +1,10 @@
 package com.fullStack.expenseTracker.services.impls;
 
 import com.fullStack.expenseTracker.dto.reponses.ApiResponseDto;
-import com.fullStack.expenseTracker.dto.reponses.ApiResponseStatus;
+import com.fullStack.expenseTracker.enums.ApiResponseStatus;
 import com.fullStack.expenseTracker.dto.requests.BudgetRequest;
-import com.fullStack.expenseTracker.expections.UserNotFoundException;
-import com.fullStack.expenseTracker.expections.UserServiceLogicException;
+import com.fullStack.expenseTracker.exceptions.UserNotFoundException;
+import com.fullStack.expenseTracker.exceptions.UserServiceLogicException;
 import com.fullStack.expenseTracker.models.Budget;
 import com.fullStack.expenseTracker.repository.BudgetRepository;
 import com.fullStack.expenseTracker.repository.UserRepository;

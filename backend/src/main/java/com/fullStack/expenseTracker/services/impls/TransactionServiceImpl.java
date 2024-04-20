@@ -1,7 +1,8 @@
 package com.fullStack.expenseTracker.services.impls;
 
 import com.fullStack.expenseTracker.dto.reponses.*;
-import com.fullStack.expenseTracker.expections.*;
+import com.fullStack.expenseTracker.enums.ApiResponseStatus;
+import com.fullStack.expenseTracker.exceptions.*;
 import com.fullStack.expenseTracker.services.CategoryService;
 import com.fullStack.expenseTracker.services.TransactionService;
 import com.fullStack.expenseTracker.services.UserService;
@@ -74,6 +75,20 @@ public class TransactionServiceImpl implements TransactionService {
                 pageable, searchKey, transactionType);
 
         try {
+            if (transactions.getTotalElements() == 0) {
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ApiResponseDto<>(
+                                ApiResponseStatus.SUCCESS,
+                                HttpStatus.OK,
+                                new PageResponseDto<>(
+                                        new ArrayList<>(),
+                                        0,
+                                        0L
+                                )
+                        )
+                );
+            }
+
             List<TransactionResponseDto> transactionResponseDtoList = new ArrayList<>();
 
             for (Transaction transaction: transactions) {
@@ -172,6 +187,19 @@ public class TransactionServiceImpl implements TransactionService {
         Page<Transaction> transactions = transactionRepository.findAll(pageable, searchKey);
 
         try {
+            if (transactions.getTotalElements() == 0) {
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ApiResponseDto<>(
+                                ApiResponseStatus.SUCCESS,
+                                HttpStatus.OK,
+                                new PageResponseDto<>(
+                                        new ArrayList<>(),
+                                        0,
+                                        0L
+                                )
+                        )
+                );
+            }
             List<TransactionResponseDto> transactionResponseDtoList = new ArrayList<>();
 
             for (Transaction transaction: transactions) {

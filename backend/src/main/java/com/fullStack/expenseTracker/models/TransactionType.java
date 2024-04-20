@@ -1,11 +1,10 @@
 package com.fullStack.expenseTracker.models;
 
+import com.fullStack.expenseTracker.enums.ETransactionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Set;
 
 @Entity
 @Data

@@ -1,7 +1,7 @@
 package com.fullStack.expenseTracker.services.impls;
 
 import com.fullStack.expenseTracker.services.TransactionTypeService;
-import com.fullStack.expenseTracker.expections.TransactionTypeNotFoundException;
+import com.fullStack.expenseTracker.exceptions.TransactionTypeNotFoundException;
 import com.fullStack.expenseTracker.models.TransactionType;
 import com.fullStack.expenseTracker.repository.TransactionTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

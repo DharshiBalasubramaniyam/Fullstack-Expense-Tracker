@@ -1,8 +1,8 @@
 package com.fullStack.expenseTracker.factories;
 
 import com.fullStack.expenseTracker.services.RoleService;
-import com.fullStack.expenseTracker.expections.RoleNotFoundException;
-import com.fullStack.expenseTracker.models.ERole;
+import com.fullStack.expenseTracker.exceptions.RoleNotFoundException;
+import com.fullStack.expenseTracker.enums.ERole;
 import com.fullStack.expenseTracker.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,4 +21,5 @@ public class RoleFactory {
         }
         throw new RoleNotFoundException("Invalid role name: " + role);
     }
+
 }
