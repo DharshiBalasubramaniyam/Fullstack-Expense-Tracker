@@ -61,7 +61,7 @@ button, .button {
   color: var(--third);  
 }
 button:hover, .button:hover {
-  border: 2px solid var(--main);  
+  border: 2px solid var(--text);  
   text-decoration: none;
 }
 button:active, .button:active {

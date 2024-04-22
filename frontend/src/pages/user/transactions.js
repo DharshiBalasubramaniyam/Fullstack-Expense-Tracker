@@ -49,13 +49,13 @@ function Transactions() {
     }, [pageNumber, searchKey, transactionType, sortDirec, sortField])
 
     useEffect(() => {
-        location.state && toast.success(location.state.text, {duration: 1000})
+        location.state && toast.success(location.state.text)
         location.state = null
     }, [])
 
     return (
         <Container activeNavId={1}>
-            <Header title="Transactions" />
+            <Header title="Transactions History" />
             <Toaster/>
 
             {(userTransactions.length === 0 && isFetching) && <Loading />}

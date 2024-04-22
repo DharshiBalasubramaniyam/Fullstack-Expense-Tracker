@@ -208,6 +208,101 @@ const removeProfileImg = async () => {
     )
 }
 
+const createSavedTransaction = (categoryId, amount, description, frequency, upcomingDate) => {
+    return axios.post(
+        API_BASE_URL + '/saved/create', 
+        {
+            userId: AuthService.getCurrentUser().id,
+            categoryId: categoryId,
+            amount:amount,
+            description:description,
+            frequency: frequency,
+            upcomingDate: upcomingDate
+        },
+        {
+            headers: AuthService.authHeader()
+        }
+    )
+}
+
+const getSavedTransactions = () => {
+    return axios.get(
+        API_BASE_URL + '/saved/user', 
+        {
+            headers: AuthService.authHeader(), 
+            params: {
+                id: AuthService.getCurrentUser().id
+            }
+        }
+    )
+}
+
+const getSavedTransactionById = (id) => {
+    return axios.get(
+        API_BASE_URL + '/saved/', 
+        {
+            headers: AuthService.authHeader(), 
+            params: {
+                id: id
+            }
+        }
+    )
+}
+const updateSavedTransaction = (id, categoryId, amount, description, frequency, upcomingDate) => {
+    return axios.put(API_BASE_URL + '/saved/', 
+        {
+            userId: AuthService.getCurrentUser().id,
+            categoryId: categoryId,
+            amount:amount,
+            description:description,
+            frequency: frequency,
+            upcomingDate: upcomingDate
+        },
+        {
+            headers: AuthService.authHeader(),
+            params: {
+                id: id
+            }
+        }
+    )
+}
+
+const deleteSavedTransaction = (id) => {
+    return axios.delete(
+        API_BASE_URL + '/saved/', 
+        {
+            headers: AuthService.authHeader(), 
+            params: {
+                id: id
+            }
+        }
+    )
+}
+
+const addSavedTransaction = (id) => {
+    return axios.get(
+        API_BASE_URL + '/saved/add', 
+        {
+            headers: AuthService.authHeader(),
+            params: {
+                id: id
+            }
+        }
+    )
+}
+
+const skipSavedTransaction = (id) => {
+    return axios.get(
+        API_BASE_URL + '/saved/skip', 
+        {
+            headers: AuthService.authHeader(),
+            params: {
+                id: id
+            }
+        }
+    )
+}
+
 const UserService = {
     get_categories,
     add_transaction ,
@@ -224,6 +319,13 @@ const UserService = {
     createBudget,
     uploadProfileImg,
     getProfileImg,
-    removeProfileImg
+    removeProfileImg,
+    createSavedTransaction,
+    getSavedTransactions,
+    getSavedTransactionById,
+    updateSavedTransaction,
+    deleteSavedTransaction,
+    addSavedTransaction,
+    skipSavedTransaction
 }
 export default UserService;

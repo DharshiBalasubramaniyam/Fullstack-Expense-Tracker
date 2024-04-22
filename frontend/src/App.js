@@ -7,6 +7,9 @@ import './assets/styles/user.css'
 import Loading from './components/utils/loading';
 import AuthService from './services/auth.service'
 import { ThemeContext, useTheme } from './contexts/ThemeContext.js';
+import NewSavedTransaction from './pages/user/newSavedTransaction.js';
+import SavedTransactions from './pages/user/savedTransactions.js';
+import EditSavedTransaction from './pages/user/editSavedTransaction.js';
 
 const Welcome = lazy(() => import('./pages/welcome.js'))
 const Login = lazy(() => import('./pages/auth/login/login.js'))
@@ -62,6 +65,9 @@ function App() {
                             <Route path="/user/transactions" element={<Transactions />} />
                             <Route path="/user/newTransaction" element={<NewTransaction />} />
                             <Route path="/user/editTransaction/:transactionId" element={<EditTransaction />} />
+                            <Route path="/user/savedTransactions" element={<SavedTransactions />} />
+                            <Route path="/user/savedTransactions/new" element={<NewSavedTransaction />} />
+                            <Route path="/user/editSavedTransaction/:transactionId" element={<EditSavedTransaction />} />
                             <Route path='/user/statistics' element={<UserStatistics />} />
                             <Route path='/user/settings' element={<UserProfile />} />
                         </Route>

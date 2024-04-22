@@ -236,6 +236,62 @@ table td button{
     text-decoration: underline;
     cursor: pointer;
 }
+form select {
+    width: 100%;
+    margin: 7px 0;color: var(--text);
+}
+.st-list {
+    margin: 15px 0;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.st-card {
+    background-color: var(--hover);
+    padding: 10px;
+    flex: 1 1 300px;
+    border-radius: 10px;
+    color: var(--text);
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+.st-card .topic {
+    display: flex;
+    /* align-items:stretch; */
+    justify-content: space-between;
+}
+.st-card button, .st-top button {
+    border-radius: 5px;
+    padding: 2px 5px;
+    width: max-content;
+    margin-right: 10px;
+}
+.st-top h2 {
+    color: var(--text);
+    font-weight: 400;
+    margin-top: 15px;
+    font-size: 18px;
+    text-align: center;
+    
+}
+.st-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+.st-list .due.overdue {
+    color: rgb(255, 87, 87);
+}
+.st-list .due.today {
+    color: rgb(252, 217, 129);
+}
+.st-list i {
+    margin-left: 10px;
+}
 
 @media all and (max-width: 768px) {
     .utils {

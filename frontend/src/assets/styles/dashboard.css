@@ -4,11 +4,10 @@
     align-items: stretch;
     justify-content: space-between;
     gap: 25px;
-    padding: 15px;
+    /* padding: 15px; */
     width: 100%;
-    box-shadow: 0 0 25px var(--main);
     height: max-content;
-    margin: 20px 0;
+    margin: 30px 0;
 }
 .details > div {
     flex: 1 1 200px;
@@ -17,7 +16,7 @@
     justify-content: space-between;
     gap: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 25px var(--hover);
+    box-shadow: 0 0 5px var(--text);
 }
 .details > div:hover {
     opacity: 0.95;
@@ -64,7 +63,7 @@
     width: 50%;
     height: 100%;
     padding: 15px;
-    box-shadow: 0 0 25px var(--main);
+    box-shadow: 0 0 5px var(--main);
     display: flex;
     flex-direction: column;
     align-items: center;
