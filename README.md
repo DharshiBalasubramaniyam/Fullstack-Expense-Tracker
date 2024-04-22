@@ -1,4 +1,4 @@
-# My Wallet
+![Screenshot 2024-04-22 153536](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/032767ed-efa8-4c74-9263-bf48a3d9fa0e)![Screenshot 2024-04-22 153501](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/30765e47-4b4e-4574-a800-5a148128c1bb)# My Wallet
 
 - Developed a full-stack expense tracking web application using Spring Boot, React.js, and MySQL, facilitating seamless management of day-to-day finances.
 - Implemented multi-role functionality with user authentication, enabling secure access for both users and administrators, with features such as sign-in, sign-up, password reset, and email verification.
@@ -14,13 +14,14 @@
 
 Users's stuff
 
-![Screenshot 2024-04-18 091830](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/55ce36ca-df2c-4b44-bb2c-ab3ae7a67db8)
-![Screenshot 2024-04-18 091852](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/49f91cb9-82c1-409f-95ec-c6aa525362b0)
-![Screenshot 2024-04-18 091923](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/0ea303db-8672-4e2c-9076-b4aed2e88165)
-![Screenshot 2024-04-18 091942](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/f1638a17-2d16-4c4b-bbcc-3db820d2ca70)
-![Screenshot 2024-04-18 092602](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/4116315c-ddb2-493a-be69-8024d2884862)
-![Screenshot 2024-04-18 092004](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/2e08cdee-f4d9-462e-b006-6d783922801c)
-![Screenshot 2024-04-18 092024](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/77d4750e-43c2-41bd-98db-7cb4ec6e4f76)
+![Screenshot 2024-04-22 153501](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/a8e6d65b-626f-493e-922d-dd7c26d8294c)
+![Screenshot 2024-04-22 153536](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/ed01d05e-cead-43c5-8959-6b64615fee43)
+![Screenshot 2024-04-22 153556](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/40ab0b82-b38d-4a19-9044-d226e3f345ed)
+![Screenshot 2024-04-22 153622](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/8f8bef4e-6735-464f-a180-f2bc17633b1b)
+![Screenshot 2024-04-22 154204](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/994d23f0-e7c1-42a6-9571-44fd4353396e)
+![Screenshot 2024-04-22 154244](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/7e43cb13-6187-4af0-8900-66afef908f66)
+![Screenshot 2024-04-22 154301](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/1b308447-f5ef-4f26-826b-0e9f42e5914f)
+
 
 
 Admin's stuff
