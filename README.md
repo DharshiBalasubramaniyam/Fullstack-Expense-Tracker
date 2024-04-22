@@ -1,10 +1,10 @@
-![Screenshot 2024-04-22 153536](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/032767ed-efa8-4c74-9263-bf48a3d9fa0e)![Screenshot 2024-04-22 153501](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/30765e47-4b4e-4574-a800-5a148128c1bb)# My Wallet
+# My Wallet
 
 - Developed a full-stack expense tracking web application using Spring Boot, React.js, and MySQL, facilitating seamless management of day-to-day finances.
 - Implemented multi-role functionality with user authentication, enabling secure access for both users and administrators, with features such as sign-in, sign-up, password reset, and email verification.
-- Developed intuitive user dashboards, monthly summaries, and statistics, budget management.
+- Developed intuitive user dashboards, transaction management, upcoming/recurring transactions tracking, monthly summaries, and statistics, budget management.
 - Developed categories, users and transactions management for administrators.
-- Implemented management capabilities including search, filter, sort and pagination
+- Implemented management capabilities including search, filter and pagination
   
 
 ![Screenshot 2024-04-18 091658](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/assets/139672976/7637b70d-8b9f-485e-84f6-bce3c940f3f2)
