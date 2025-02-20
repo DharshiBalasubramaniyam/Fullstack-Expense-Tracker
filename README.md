@@ -20,7 +20,7 @@
 git clone https://github.com/<your-username>/Fullstack-Expense-Tracker
 ```
 
-## Step 2: Setting up e-mail and database configurations
+### Step 2: Setting up e-mail and database configurations
 
 - Configure the following credentials in the [`application.properties`](https://github.com/DharshiBalasubramaniyam/Fullstack-Expense-Tracker/blob/main/backend/src/main/resources/application.properties) file.
 
