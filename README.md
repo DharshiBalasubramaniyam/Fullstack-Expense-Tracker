@@ -56,7 +56,7 @@ npm install
 npm start
 ```
 
-Access the application at [`http://localhost:5173/`](http://localhost:3000/).
+Access the application at [`http://localhost:3000/`](http://localhost:3000/).
 To get started create a new account using your email.
 
 ## Screenshots
