@@ -3,7 +3,7 @@
 ## Table of contents
 
 1. [Descripiton](#description)
-2. [How to run](#how-to-run)
+2. [How to run?](#how-to-run)
 3. [Screenshots](#screenshots)
 
 ## Description
