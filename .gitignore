@@ -54,3 +54,24 @@
 ### VS Code ###
 */.vscode/
 
+
+# Terraform .terraform directory
+*/.terraform/
+
+# Terraform state files
+*/*.tfstate
+*/*.tfstate.backup
+
+# Crash log files
+crash.log
+
+# Terraform .terraform.lock.hcl (optional, see note below)
+#.terraform.lock.hcl
+
+# Sensitive variable files (if not managed securely)
+*.tfvars
+*.tfvars.json
+
+# Provider-specific temporary files
+*/.terraform.d/
+
