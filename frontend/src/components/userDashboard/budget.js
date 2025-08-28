@@ -60,7 +60,7 @@ function Budget({totalExpense, budgetAmount, saveBudget, currentMonth}) {
                         <Tooltip />
                     </PieChart>
                 </ResponsiveContainer>
-                <h4>Remaining: {budgetAmount - totalExpense}</h4>
+                {budgetAmount != 0 && <h4>Remaining: {budgetAmount - totalExpense}</h4>}
             </div>
 
             <div className={formToggle ? 'budget-form active' : 'budget-form'}>
